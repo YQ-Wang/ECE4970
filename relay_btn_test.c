@@ -5,7 +5,7 @@
 #define IN2 2
 #define IN3 0
 #define IN4 7
-#define BTN 25
+#define BTN1 25
 
 int main(void)
 {
@@ -17,7 +17,7 @@ int main(void)
         
     int on = 1;
     pinMode (IN1, OUTPUT);
-    pinMode (BTN, INPUT);
+    pinMode (BTN1, INPUT);
     digitalWrite(IN1, 1);
 
     for(;;)
