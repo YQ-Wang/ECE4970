@@ -164,14 +164,19 @@ int main(int argc, char *argv[])
 
     printf("value=%d\n", value);
     
-    if(LOWBOUND_count>3)
+    while(1)  
     {
-        printf("LOWBOUND_count = %d\n", LOWBOUND_count);
-    }
+        if(LOWBOUND_count>3)
+        {
+            printf("LOWBOUND_count = %d\n", LOWBOUND_count);
+            LOWBOUND_count = 0;
+        }
 
-    if(HIGHBOUND_count>3)
-    {
-        printf("HIGHBOUND_count = %d\n", HIGHBOUND_count);
+        if(HIGHBOUND_count>3)
+        {
+            printf("HIGHBOUND_count = %d\n", HIGHBOUND_count);
+            HIGHBOUND_count = 0;
+        }
     }
 
     return 0;
