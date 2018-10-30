@@ -110,16 +110,16 @@ void *readingADC(void* ptr)
 {
     while(1) 
     {
-        int value = getADCValue();
-        printf("value=%d\n", value);
+        int ADCvalue = getADCValue();
+        printf("value=%d\n", ADCvalue);
 
-        if(value < LOWBOUND)
+        if(ADCvalue < LOWBOUND)
         {
             LOWBOUND_count++;
             printf("\nADC POWER\n\n");
         }
 
-        if(value > HIGHBOUND)
+        if(ADCvalue > HIGHBOUND)
         {
             HIGHBOUND_count++;
             printf("\nADC BOUND\n\n");
