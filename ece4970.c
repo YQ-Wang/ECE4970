@@ -222,25 +222,37 @@ void *readingADC(void* ptr)
 }
 
 void *triggerCircuit(void* ptr)
-{          
+{       
+    int i;
+
     while(1)
     {
         usleep(10000);
         sem_wait(&my_semaphore1);
 
+        for(i=0;i<10;i++)
+        {
+            digitalWrite(IN1, 0);
+            usleep(10000);
+            digitalWrite(IN1, 1);
+            usleep(10000);
+        }
+
+        /*
         if(LOWBOUND_Count>3)
         {
             //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
-            //digitalWrite(IN1, 0);
+            digitalWrite(IN1, 0);
             LOWBOUND_Count = 0;
         }
 
         if(HIGHBOUND_Count>3)
         {
             //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
-            //digitalWrite(IN1, 0);
+            digitalWrite(IN1, 0);
             HIGHBOUND_Count = 0;
         }
+        */
     }
 }
 
