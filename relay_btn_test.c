@@ -84,7 +84,7 @@ void mysql_disconnect(void)
 
 void B1Interrupt() 
 {   
-    //wiringPiSetup();
+    wiringPiSetup();
     printf("BTN1 Pressed\n");
     if (on == 1)
     {
