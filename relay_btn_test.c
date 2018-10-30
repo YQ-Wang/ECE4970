@@ -29,8 +29,8 @@ MYSQL *mysql1;
 #define IN4 4
 
 //bound
-#define LOWBOUND 10
-#define HIGHBOUND 140 
+#define LOWBOUND1 10
+#define HIGHBOUND1 140 
 
 // Button
 #define BTN1 26
@@ -48,13 +48,8 @@ struct timeval interruptTimeB1;
 char eventTime_string[64];
 char interruptTimeB1_string[64];
 
-
-
-sem_t my_semaphore1,my_semaphore2;
-
-
 int LOWBOUND_Count = 0;
-int HIGHBOUND_Count = 0;
+int HIGHBOUND1_Count = 0;
 int REGULAR_Count = 0;
 
 int LOWBOUND_Flag = 0;
@@ -149,7 +144,6 @@ void *triggerCircuit(void* ptr)
     while(1)
     {
         usleep(10000);
-        //sem_wait(&my_semaphore1);
 
         if(BTN1_Flag == 0)
         {
@@ -186,7 +180,7 @@ void *triggerCircuit(void* ptr)
 
             if(HIGHBOUND_Flag == 1 || LOWBOUND_Flag == 1)
             {
-                sleep(10);
+                sleep(5);
                 HIGHBOUND_Flag = 0;
                 LOWBOUND_Flag = 0;
             }
@@ -253,7 +247,7 @@ void *readingADC(void* ptr)
             LOWBOUND_Count++;
         }
 
-        if(ADC_Value > HIGHBOUND)
+        if(ADC_Value > HIGHBOUND1)
         {
             HIGHBOUND_Count++;
         }
@@ -264,8 +258,6 @@ void *readingADC(void* ptr)
         }
         
         usleep(10000);
-
-        //sem_post(&my_semaphore1);
     }
 }
 

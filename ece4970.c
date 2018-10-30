@@ -23,17 +23,17 @@ MYSQL *mysql1;
 #define CS 5
 
 // Relay
-#define IN1 3
-#define IN2 2
-#define IN3 0
-#define IN4 7
+#define IN1 22
+#define IN2 27
+#define IN3 17
+#define IN4 4
 
 //bound
 #define LOWBOUND 10
 #define HIGHBOUND 140 
 
 // Button
-#define BTN1 25
+#define BTN1 26
 
 #define DELAYTIME 2
 
