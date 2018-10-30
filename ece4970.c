@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <wiringPi.h>
+#include <time.h>
+#include <stdlib.h>     /* atoi */
+#include <pthread.h>
+#include <math.h>
 
 // ADC
 #define CLK 6
@@ -36,7 +40,7 @@ struct logevent
     char timeBuffer [26];
     time_t rawtime;
     int RTUid;
-    typeEvent typeEventID;
+    enum typeEvent typeEventID;
 } LogEvent;  
 
 int getADCValue() 
