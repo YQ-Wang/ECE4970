@@ -29,6 +29,8 @@
 int LOWBOUND_count = 0;
 int HIGHBOUND_count = 0;
 
+int ADC_Value = 0;
+
 enum typeEvent
 {
     BTNOFF,
@@ -110,19 +112,19 @@ void *readingADC(void* ptr)
 {
     while(1) 
     {
-        int ADCvalue = getADCValue();
-        printf("value=%d\n", ADCvalue);
+        ADC_Value = getADCValue();
+        //printf("value=%d\n", ADC_Value);
 
-        if(ADCvalue < LOWBOUND)
+        if(ADC_Value < LOWBOUND)
         {
             LOWBOUND_count++;
-            printf("\nADC POWER\n\n");
+            //printf("\nADC POWER\n\n");
         }
 
-        if(ADCvalue > HIGHBOUND)
+        if(ADC_Value > HIGHBOUND)
         {
             HIGHBOUND_count++;
-            printf("\nADC BOUND\n\n");
+            //printf("\nADC BOUND\n\n");
         }
         
         usleep(100000);
@@ -172,8 +174,7 @@ int main(int argc, char *argv[])
     
     while(1)  
     {
-        sleep(1);
-        /*
+        
         if(LOWBOUND_count>3)
         {
             printf("LOWBOUND_count = %d\n", LOWBOUND_count);
@@ -185,7 +186,6 @@ int main(int argc, char *argv[])
             printf("HIGHBOUND_count = %d\n", HIGHBOUND_count);
             HIGHBOUND_count = 0;
         }
-        */
     }
 
     return 0;
