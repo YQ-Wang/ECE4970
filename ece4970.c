@@ -113,7 +113,7 @@ void *readingADC(void* ptr)
     while(1) 
     {
         value = getADCValue();
-        //printf("value=%d\n", value);
+        printf("value=%d\n", value);
 
         if(value < LOWBOUND)
         {
@@ -166,6 +166,7 @@ int main(int argc, char *argv[])
     
     while(1)  
     {
+        /*
         if(LOWBOUND_count>3)
         {
             printf("LOWBOUND_count = %d\n", LOWBOUND_count);
@@ -177,6 +178,7 @@ int main(int argc, char *argv[])
             printf("HIGHBOUND_count = %d\n", HIGHBOUND_count);
             HIGHBOUND_count = 0;
         }
+        */
     }
 
     return 0;
