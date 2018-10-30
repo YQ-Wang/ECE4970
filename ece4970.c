@@ -289,7 +289,7 @@ int main(int argc, char *argv[])
     //sem_init(&my_semaphore2,0,INIT_VALUE);
     
     pthread_t adcReading, circuitTrigger;
-    pthread_create(&adcReading, NULL, readingADC, NULL);
+    //pthread_create(&adcReading, NULL, readingADC, NULL);
     usleep(1000);
     //pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
