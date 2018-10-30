@@ -24,7 +24,7 @@ int main(void)
 
     int BTNCount=0;
 
-    while(1)
+    for(;;)
     {
         int i;
         
