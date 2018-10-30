@@ -33,7 +33,7 @@ MYSQL *mysql1;
 #define HIGHBOUND 140 
 
 // Button
-#define BTN1 25
+#define BTN1 26
 
 #define DELAYTIME 2
 
@@ -84,7 +84,7 @@ void mysql_disconnect(void)
 
 void B1Interrupt() 
 {   
-    wiringPiSetup();
+    //wiringPiSetup();
     printf("BTN1 Pressed\n");
     if (on == 1)
     {
@@ -112,14 +112,14 @@ int setupWiringPiFunction()
         printf("Failed to wiringPiSetupGpio()\n");
         return 0;
     }
-
+    /*
     // sets up the wiringPi library
     if (wiringPiSetup () < 0) 
     {
         printf("Unable to setup wiringPi\n");
         return -1;
     }
-    
+    */
     pinMode(IN1, OUTPUT);
     //pinMode(BTN1, INPUT);
 
