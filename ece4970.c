@@ -155,6 +155,14 @@ int main(int argc, char *argv[])
         return -1;
     }        
 
+    int rc = wiringPiSetupGpio();
+
+    if (rc != 0) 
+    {
+        printf("Failed to wiringPiSetupGpio()\n");
+        return 0;
+    }
+
     pthread_t adcReading;
     //, receiveThread;
     pthread_create(&adcReading, NULL, readingADC, NULL);
