@@ -201,7 +201,7 @@ void *readingADC(void* ptr)
         {
             LOWBOUND_Flag = 1;
             gettimeofday(&eventTime, NULL);
-            printf("%ld.%06ld\n", eventTime.ru_stime.tv_sec, eventTime.ru_stime.tv_usec);
+            printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
             printf("\nADC POWER\n\n");
         }
 
@@ -209,7 +209,7 @@ void *readingADC(void* ptr)
         {
             HIGHBOUND_Flag = 1;
             gettimeofday(&eventTime, NULL);
-            printf("%ld.%06ld\n", eventTime.ru_stime.tv_sec, eventTime.ru_stime.tv_usec);
+            printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
             printf("\nADC BOUND\n\n");
         }
         
