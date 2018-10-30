@@ -42,8 +42,8 @@ MYSQL *mysql1;
 struct timeval eventTime;
 struct timeval interruptTimeB1, lastInterruptTimeB1;
 
-char eventTime_string;
-char interruptTimeB1_string;
+char eventTime_string[50];
+char interruptTimeB1_string[50];
 
 
 sem_t my_semaphore1,my_semaphore2;
