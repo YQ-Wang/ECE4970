@@ -151,15 +151,15 @@ void *triggerCircuit(void* ptr)
         usleep(1000);
         sem_wait(&my_semaphore2);
 
-        if(LOWBOUND_count>2)
+        if(LOWBOUND_Count>2)
         {
-            printf("LOWBOUND_count = %d\n", LOWBOUND_count);
+            printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
 
         }
 
-        if(HIGHBOUND_count>2)
+        if(HIGHBOUND_Count>2)
         {
-            printf("HIGHBOUND_count = %d\n", HIGHBOUND_count);
+            printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
     
         }
     }
@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
     sem_init(&my_semaphore1,0,INIT_VALUE);
     sem_init(&my_semaphore2,0,INIT_VALUE);
     
-    pthread_t adcReading, receiveThread;
+    pthread_t adcReading, circuitTrigger;
     pthread_create(&adcReading, NULL, readingADC, NULL);
     pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
