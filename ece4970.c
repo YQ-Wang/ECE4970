@@ -31,7 +31,6 @@
 
 sem_t my_semaphore1,my_semaphore2;
 
-
 int LOWBOUND_Flag = 0;
 int HIGHBOUND_Flag = 0;
 int LOWBOUND_Count = 0;
@@ -155,12 +154,16 @@ void *triggerCircuit(void* ptr)
         {
             printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
 
+            digitalWrite(IN1, 1);
+            LOWBOUND_Count = 0;
         }
 
         if(HIGHBOUND_Count>2)
         {
             printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
-    
+
+            digitalWrite(IN1, 0);
+            HIGHBOUND_Count = 0;
         }
     }
 
@@ -189,7 +192,6 @@ int main(int argc, char *argv[])
     pthread_t adcReading, circuitTrigger;
     pthread_create(&adcReading, NULL, readingADC, NULL);
     pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
-
 
     while(1)  
     {
