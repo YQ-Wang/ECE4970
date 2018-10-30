@@ -29,8 +29,6 @@
 int LOWBOUND_count = 0;
 int HIGHBOUND_count = 0;
 
-int value;
-
 enum typeEvent
 {
     BTNOFF,
@@ -162,7 +160,7 @@ int main(int argc, char *argv[])
     pthread_create(&adcReading, NULL, readingADC, NULL);
     //pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
-    printf("value=%d\n", value);
+    //printf("value=%d\n", value);
     
     while(1)  
     {
