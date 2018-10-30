@@ -29,14 +29,13 @@ int main(void)
     {   
         for(i=0;i<10;i++)
         {
-            usleep(100);
             if(digitalRead(BTN1) == HIGH)
             {
                 BTNCount++;
             }
         }
 
-        if (BTNCount>8)
+        if(BTNCount>5)
         {
             if (on == 1)
             {
