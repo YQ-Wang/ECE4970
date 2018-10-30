@@ -148,19 +148,22 @@ void *triggerCircuit(void* ptr)
             //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
             gettimeofday(&eventTime, NULL);
             strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
-            printf("ON: %s\n", eventTime_string);
+            printf("NO POWER: %s\n", eventTime_string);
             digitalWrite(IN1, 0);
             LOWBOUND_Count = 0;
         }
-
-        if(HIGHBOUND_Count>2)
+        else if(HIGHBOUND_Count>2)
         {
             //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
             gettimeofday(&eventTime, NULL);
             strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
-            printf("ON: %s\n", eventTime_string);
+            printf("TOO HIGH: %s\n", eventTime_string);
             digitalWrite(IN1, 0);
             HIGHBOUND_Count = 0;
+        }
+        else
+        {
+            digitalWrite(IN1, 1);
         }
     }
 }
