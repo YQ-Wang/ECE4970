@@ -4,7 +4,9 @@
 #include <time.h>
 #include <stdlib.h>     /* atoi */
 #include <pthread.h>
+#include <semaphore.h>
 #include <math.h>
+
 
 // ADC
 #define CLK 6
@@ -26,8 +28,13 @@
 
 #define DELAYTIME 2
 
-int LOWBOUND_count = 0;
-int HIGHBOUND_count = 0;
+#define INIT_VALUE 1 
+
+sem_t my_semaphore1,my_semaphore2;
+
+
+int LOWBOUND_Flag = 0;
+int HIGHBOUND_Flag = 0;
 
 int ADC_Value = 0;
 
@@ -112,22 +119,25 @@ void *readingADC(void* ptr)
 {
     while(1) 
     {
+        sem_wait(&my_semaphore1);
+        
         ADC_Value = getADCValue();
         //printf("value=%d\n", ADC_Value);
 
         if(ADC_Value < LOWBOUND)
         {
-            LOWBOUND_count++;
+            LOWBOUND_Flag = 1;
             //printf("\nADC POWER\n\n");
         }
 
         if(ADC_Value > HIGHBOUND)
         {
-            HIGHBOUND_count++;
+            HIGHBOUND_Flag = 1;
             //printf("\nADC BOUND\n\n");
         }
         
         usleep(100000);
+        sem_post(&my_semaphore1);
     }
 }
 /*
@@ -165,6 +175,8 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+    sem_init(&my_semaphore1,0,INIT_VALUE);
+
     pthread_t adcReading;
     //, receiveThread;
     pthread_create(&adcReading, NULL, readingADC, NULL);
@@ -174,18 +186,19 @@ int main(int argc, char *argv[])
     
     while(1)  
     {
-        
-        if(LOWBOUND_count>3)
+        sem_wait(&my_semaphore1);
+        if(LOWBOUND_Flag == 1)
         {
-            printf("LOWBOUND_count = %d\n", LOWBOUND_count);
-            LOWBOUND_count = 0;
+            printf("LOWBOUND happened\n");
+            LOWBOUND_Flag = 0;
         }
 
-        if(HIGHBOUND_count>3)
+        if(HIGHBOUND_Flag>3)
         {
-            printf("HIGHBOUND_count = %d\n", HIGHBOUND_count);
-            HIGHBOUND_count = 0;
+            printf("HIGHBOUND happened\n");
+            HIGHBOUND_Flag = 0;
         }
+        sem_post(&my_semaphore1);
     }
 
     return 0;
