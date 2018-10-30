@@ -46,6 +46,8 @@ int main(void)
                 on = 1;
             }
         }
+
+        BTNCount = 0;
     }
 
     return 0;
