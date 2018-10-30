@@ -60,7 +60,9 @@ int HIGHBOUND_Count = 0;
 int ADC_Value = 0;
 
 int on = 1;
-int BTNCount=0;
+
+int BTN1_Count = 0;
+int BTN1_Flag = 0;
 
 void mysql_connect(void)
 {
@@ -92,7 +94,12 @@ void mysql_disconnect(void)
 
 void B1Interrupt() 
 {   
+    BTN1_Count++;
+
+    BTN1_Flag = 1;
+
     printf("BTN1 Pressed\n");
+    
     if (on == 1)
     {
         digitalWrite(IN1, 0);
@@ -109,6 +116,11 @@ void B1Interrupt()
         strftime(interruptTimeB1_string, sizeof(interruptTimeB1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB1.tv_sec, &interruptTimeB1_tm));
         printf("ON: %s\n", interruptTimeB1_string);
         on = 1;
+    }
+
+    if(BTN1_Count%2 == 0)
+    {
+        BTN1_Flag = 0;
     }
 }
 
@@ -143,27 +155,30 @@ void *triggerCircuit(void* ptr)
         usleep(10000);
         sem_wait(&my_semaphore1);
 
-        if(LOWBOUND_Count>2)
+        if(BTN1_Flag == 0)
         {
-            //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
-            gettimeofday(&eventTime, NULL);
-            strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
-            printf("NO POWER: %s\n", eventTime_string);
-            digitalWrite(IN1, 0);
-            LOWBOUND_Count = 0;
-        }
-        else if(HIGHBOUND_Count>2)
-        {
-            //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
-            gettimeofday(&eventTime, NULL);
-            strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
-            printf("TOO HIGH: %s\n", eventTime_string);
-            digitalWrite(IN1, 0);
-            HIGHBOUND_Count = 0;
-        }
-        else
-        {
-            digitalWrite(IN1, 1);
+            if(LOWBOUND_Count>2)
+            {
+                //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
+                gettimeofday(&eventTime, NULL);
+                strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
+                printf("NO POWER: %s\n", eventTime_string);
+                digitalWrite(IN1, 0);
+                LOWBOUND_Count = 0;
+            }
+            else if(HIGHBOUND_Count>2)
+            {
+                //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
+                gettimeofday(&eventTime, NULL);
+                strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
+                printf("TOO HIGH: %s\n", eventTime_string);
+                digitalWrite(IN1, 0);
+                HIGHBOUND_Count = 0;
+            }
+            else
+            {
+                digitalWrite(IN1, 1);
+            }
         }
     }
 }
