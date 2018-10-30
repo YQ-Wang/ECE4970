@@ -7,7 +7,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <math.h>
-#include <mysql/mysql.h>   
+#include <mysql.h>   
 
 // ADC
 #define CLK 6
