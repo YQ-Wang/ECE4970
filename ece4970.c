@@ -165,13 +165,13 @@ void *triggerCircuit(void* ptr)
 
     while(1)
     {
-        usleep(1000);
+        usleep(10000);
         sem_wait(&my_semaphore2);
 
         if(LOWBOUND_Count>3)
         {
             printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
-            digitalWrite(IN1, 1);
+            digitalWrite(IN1, 0);
             LOWBOUND_Count = 0;
         }
 
