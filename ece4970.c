@@ -169,5 +169,17 @@ int main(int argc, char *argv[])
     pthread_create(&adcReading, NULL, readingADC, NULL);
     //pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
+    if(LOWBOUND_count>3)
+    {
+        printf("LOWBOUND_count = %d\n", LOWBOUND_count);
+
+    }
+
+    if(HIGHBOUND_count>3)
+    {
+        printf("HIGHBOUND_count = %d\n", HIGHBOUND_count);
+    
+    }
+
     return 0;
 }
