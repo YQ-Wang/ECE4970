@@ -186,6 +186,12 @@ int main(int argc, char *argv[])
     while(1)  
     {
         sem_wait(&my_semaphore1);
+
+        if(LOWBOUND_Flag == 0 && HIGHBOUND_Flag == 0)
+        {
+            printf("good\n");
+        }
+
         if(LOWBOUND_Flag == 1)
         {
             printf("LOWBOUND happened\n");
