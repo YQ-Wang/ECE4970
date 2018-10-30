@@ -42,6 +42,10 @@ MYSQL *mysql1;
 struct timeval eventTime;
 struct timeval interruptTimeB1, lastInterruptTimeB1;
 
+char eventTime_string;
+char interruptTimeB1_string;
+
+
 sem_t my_semaphore1,my_semaphore2;
 
 int LOWBOUND_Flag = 0;
@@ -84,22 +88,23 @@ void mysql_disconnect(void)
 
 void B1Interrupt() 
 {   
-    //wiringPiSetup();
     printf("BTN1 Pressed\n");
     if (on == 1)
     {
         digitalWrite(IN1, 0);
-        printf("OFF\n");
+        gettimeofday(&interruptTimeB1, NULL);
+        interruptTimeB1_string = ctime(&interruptTimeB1);
+        printf("OFF: %s\n", interruptTimeB1_string);
         on = 0;
-        //BTNCount = 0;
     }
 
     else if(on == 0)
     {
         digitalWrite(IN1, 1);
-        printf("ON\n");
+        gettimeofday(&interruptTimeB1, NULL);
+        interruptTimeB1_string = ctime(&interruptTimeB1);
+        printf("ON: %s\n", interruptTimeB1_string);
         on = 1;
-        //BTNCount = 0;
     }
 }
 
@@ -117,7 +122,7 @@ int setupWiringPiFunction()
 
     digitalWrite(IN1, 1);
 
-    //-----------------------wiringpi GPIO interrupt setup ------
+    //----------wiringpi GPIO interrupt setup ---------
     if (wiringPiISR(BTN1, INT_EDGE_RISING, &B1Interrupt)<0) 
     {
         printf("Not able to setup IRS\n");
@@ -134,16 +139,22 @@ void *triggerCircuit(void* ptr)
         usleep(10000);
         sem_wait(&my_semaphore1);
 
-        if(LOWBOUND_Count>3)
+        if(LOWBOUND_Count>2)
         {
-            printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
+            //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
+            gettimeofday(&eventTime, NULL);
+            eventTime_string = ctime(&eventTime);
+            printf("ON: %s\n", eventTime_string);
             digitalWrite(IN1, 0);
             LOWBOUND_Count = 0;
         }
 
-        if(HIGHBOUND_Count>3)
+        if(HIGHBOUND_Count>2)
         {
-            printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
+            //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
+            gettimeofday(&eventTime, NULL);
+            eventTime_string = ctime(&eventTime);
+            printf("ON: %s\n", eventTime_string);
             digitalWrite(IN1, 0);
             HIGHBOUND_Count = 0;
         }
@@ -205,24 +216,16 @@ void *readingADC(void* ptr)
         HIGHBOUND_Flag = 0;
 
         ADC_Value = getADCValue();
-        printf("value=%d\n", ADC_Value);
+        //printf("value=%d\n", ADC_Value);
 
         if(ADC_Value < LOWBOUND)
         {
-            //LOWBOUND_Flag = 1;
             LOWBOUND_Count++;
-            gettimeofday(&eventTime, NULL);
-            //printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
-            //printf("\nADC POWER\n\n");
         }
 
         if(ADC_Value > HIGHBOUND)
         {
-            //HIGHBOUND_Flag = 1;
             HIGHBOUND_Count++;
-            gettimeofday(&eventTime, NULL);
-            //printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
-            //printf("\nADC BOUND\n\n");
         }
         
         usleep(10000);
