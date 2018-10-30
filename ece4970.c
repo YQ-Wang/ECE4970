@@ -7,6 +7,10 @@
 #include <semaphore.h>
 #include <math.h>
 
+
+#define SPI_CHANNEL         0// 0 or 1
+#define SPI_SPEED     2000000    // Max speed is 3.6 MHz when VDD = 5 V
+
 // ADC
 #define CLK 6
 #define DIO 13
@@ -38,6 +42,8 @@ int HIGHBOUND_Count = 0;
 
 int ADC_Value = 0;
 
+int on = 1;
+
 enum typeEvent
 {
     BTNOFF,
@@ -66,6 +72,30 @@ int setupWiringPiFunction()
     
     pinMode(IN1, OUTPUT);
     pinMode(BTN1, INPUT);
+
+    //-----------------------wiringpi GPIO interrupt setup ------
+    if ( wiringPiISR (BTN1, INT_EDGE_FALLING, &B1Interrupt) < 0 ) 
+    {
+        printf("Not able to setup IRS\n");
+        return -1;
+    }
+}
+
+void B1Interrupt() 
+{   
+    if (on == 1)
+    {
+        digitalWrite(IN1, 0);
+        on = 0;
+        BTNCount = 0;
+    }
+
+    else if(on == 0)
+    {
+        digitalWrite(IN1, 1);
+        on = 1;
+        BTNCount = 0;
+    }
 }
 
 int getADCValue() 
@@ -145,10 +175,11 @@ void *readingADC(void* ptr)
 
 void *triggerCircuit(void* ptr)
 {
-    if (wiringPiSetup() < 0) 
+        // Configure the SPI
+    if(wiringPiSPISetup(SPI_CHANNEL, SPI_SPEED) < 0) 
     {
-        printf("Not able to setup wiringpi\n");
-        exit(-1);
+        printf("wiringPiSPISetup failed\n");
+        //return -1 ;
     }
           
     int on = 1;
@@ -187,13 +218,8 @@ void *triggerCircuit(void* ptr)
             }
         }
     }
-    /*
-    if(setupWiringPiFunction() < 0 )
-    {
-        printf("Error setup RUT\n");
-        return -1;
-    }        
-    */
+
+    
 
 /*
     if (wiringPiSetup() < 0) 
@@ -231,6 +257,13 @@ void *triggerCircuit(void* ptr)
 
 int main(int argc, char *argv[]) 
 {
+        
+    if(setupWiringPiFunction() < 0 )
+    {
+        printf("Error setup RUT\n");
+        return -1;
+    }        
+
     int rc = wiringPiSetupGpio();
 
     if (rc != 0) 
