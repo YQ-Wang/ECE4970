@@ -35,7 +35,7 @@ int main(void)
             }
         }
 
-        if (BTNCount>6)
+        if (BTNCount>8)
         {
             if (on == 1)
             {
