@@ -33,7 +33,7 @@ int main(void)
             BTNCount++;
         }
 
-        if (BTNCount>=7)
+        if (BTNCount>7)
         {
             if (on == 1)
             {
