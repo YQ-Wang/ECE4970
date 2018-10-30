@@ -26,6 +26,9 @@
 
 #define DELAYTIME 2
 
+int LOWBOUND_count = 0;
+int HIGHBOUND_count = 0;
+
 enum typeEvent
 {
     BTNOFF,
@@ -42,6 +45,19 @@ struct logevent
     int RTUid;
     enum typeEvent typeEventID;
 } LogEvent;  
+
+int setupWiringPiFunction() 
+{
+    // sets up the wiringPi library
+    if (wiringPiSetup () < 0) 
+    {
+        printf("Unable to setup wiringPi\n");
+        return -1;
+    }
+    
+    pinMode(IN1, OUTPUT);
+    pinMode(BTN1, INPUT);
+}
 
 int getADCValue() 
 {
@@ -90,19 +106,8 @@ int getADCValue()
     return value;
 }
 
-int main(int argc, char *argv[]) 
+void *readingADC(void* ptr)
 {
-    int value[4];
-
-    printf("Starting ADC test\n");
-    int rc = wiringPiSetupGpio();
-
-    if (rc != 0) 
-    {
-        printf("Failed to wiringPiSetupGpio()\n");
-        return 0;
-    }
-
     while(1) 
     {
         int value = getADCValue();
@@ -110,16 +115,59 @@ int main(int argc, char *argv[])
 
         if(value < LOWBOUND)
         {
+            LOWBOUND_count++;
             printf("\nADC POWER\n\n");
         }
 
         if(value > HIGHBOUND)
         {
+            HIGHBOUND_count++;
             printf("\nADC BOUND\n\n");
         }
         
-        
-        
         usleep(100000);
     }
+}
+/*
+void *triggerCircuit(void* ptr)
+{
+    if(LOWBOUND_count>3)
+    {
+        printf("LOWBOUND_count = %d\n", LOWBOUND_count);
+
+    }
+
+    if(HIGHBOUND_count>3)
+    {
+        printf("HIGHBOUND_count = %d\n", HIGHBOUND_count);
+    
+    }
+
+
+}
+*/
+
+int main(int argc, char *argv[]) 
+{
+    if(setupWiringPiFunction() < 0 )
+    {
+        printf("Error setup RUT\n");
+        return -1;
+    }        
+
+    printf("Starting ADC test\n");
+    int rc = wiringPiSetupGpio();
+
+    if (rc != 0) 
+    {
+        printf("Failed to wiringPiSetupGpio()\n");
+        return -1;
+    }
+
+    pthread_t adcReading;
+    //, receiveThread;
+    pthread_create(&adcReading, NULL, readingADC, NULL);
+    //pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
+
+    return 0;
 }
