@@ -19,7 +19,6 @@
 // Button
 #define BTN1 25
 
-
 #define DELAYTIME 2
 
 int getADCValue() 

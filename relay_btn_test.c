@@ -16,13 +16,24 @@ int main(void)
     }
         
     int on = 1;
+
     pinMode (IN1, OUTPUT);
     pinMode (BTN1, INPUT);
     digitalWrite(IN1, 1);
 
-    for(;;)
+    int BTNCount=0;
+
+    while(1)
     {
-        if (digitalRead(BTN1) == HIGH)
+        int i;
+        
+        for(i=0;i<10;i++)
+        {
+            if (digitalRead(BTN1) == HIGH)
+            BTNCount++;
+        }
+
+        if (BTNCount>=7)
         {
             if (on == 1)
             {
