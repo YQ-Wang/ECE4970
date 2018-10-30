@@ -199,7 +199,8 @@ void *readingADC(void* ptr)
 
         if(ADC_Value < LOWBOUND)
         {
-            LOWBOUND_Flag = 1;
+            //LOWBOUND_Flag = 1;
+            LOWBOUND_Count++;
             gettimeofday(&eventTime, NULL);
             printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
             printf("\nADC POWER\n\n");
@@ -207,7 +208,8 @@ void *readingADC(void* ptr)
 
         if(ADC_Value > HIGHBOUND)
         {
-            HIGHBOUND_Flag = 1;
+            //HIGHBOUND_Flag = 1;
+            HIGHBOUND_Count++;
             gettimeofday(&eventTime, NULL);
             printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
             printf("\nADC BOUND\n\n");
@@ -224,7 +226,7 @@ void *triggerCircuit(void* ptr)
     while(1)
     {
         usleep(10000);
-        sem_wait(&my_semaphore2);
+        sem_wait(&my_semaphore1);
 
         if(LOWBOUND_Count>3)
         {
@@ -261,7 +263,7 @@ int main(int argc, char *argv[])
     mysql_connect();
     
     sem_init(&my_semaphore1,0,INIT_VALUE);
-    sem_init(&my_semaphore2,0,INIT_VALUE);
+    //sem_init(&my_semaphore2,0,INIT_VALUE);
     
     pthread_t adcReading, circuitTrigger;
     pthread_create(&adcReading, NULL, readingADC, NULL);
@@ -269,13 +271,13 @@ int main(int argc, char *argv[])
 
     while(1)  
     {
-        sem_wait(&my_semaphore1);
+        //sem_wait(&my_semaphore1);
 
         //usleep(50000);
-
+        /*
         if(LOWBOUND_Flag == 0 && HIGHBOUND_Flag == 0)
         {
-            printf("good\n");
+            //printf("good\n");
         }
 
         if(LOWBOUND_Flag == 1)
@@ -291,8 +293,8 @@ int main(int argc, char *argv[])
             //printf("HIGHBOUND happened\n");
             HIGHBOUND_Flag = 0;
         }
-
-        sem_post(&my_semaphore2);
+        */
+        //sem_post(&my_semaphore2);
     }
 
     mysql_disconnect();
