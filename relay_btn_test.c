@@ -11,6 +11,7 @@
 #define IN3 0
 #define IN4 7
 #define BTN1 25
+int on=1;
 
 void *triggerCircuit(void* ptr)
 {       
@@ -47,9 +48,25 @@ void *triggerCircuit(void* ptr)
     }
 }
 
-void B1Interrupt(){
-    printf("1\n");
-    return;
+void B1Interrupt() 
+{   
+    wiringPiSetup();
+    printf("BTN1 Pressed\n");
+    if (on == 1)
+    {
+        //digitalWrite(IN1, 0);
+        printf("OFF\n");
+        on = 0;
+        //BTNCount = 0;
+    }
+
+    else if(on == 0)
+    {
+        //digitalWrite(IN1, 1);
+        printf("ON\n");
+        on = 1;
+        //BTNCount = 0;
+    }
 }
 
 
