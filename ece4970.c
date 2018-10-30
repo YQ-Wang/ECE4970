@@ -7,6 +7,13 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <math.h>
+#include <mysql/mysql.h>
+
+#define DATABASE_NAME		"scada"
+#define DATABASE_IP         "35.192.121.176"
+#define DATABASE_USERNAME	"root"
+#define DATABASE_PASSWORD	"ece4970"
+MYSQL *mysql1;
 
 // ADC
 #define CLK 6
@@ -58,6 +65,34 @@ struct logevent
     int RTUid;
     enum typeEvent typeEventID;
 } LogEvent;  
+
+void mysql_connect (void)
+{
+    //initialize MYSQL object for connections
+	mysql1 = mysql_init(NULL);
+
+    if(mysql1 == NULL)
+    {
+        fprintf(stderr, "%s\n", mysql_error(mysql1));
+        return;
+    }
+
+    //Connect to the database
+    if(mysql_real_connect(mysql1, DATABASE_IP, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME, 0, NULL, 0) == NULL)
+    {
+    	fprintf(stderr, "%s\n", mysql_error(mysql1));
+    }
+    else
+    {
+        printf("Database connection successful.\n");
+    }
+}
+
+void mysql_disconnect (void)
+{
+    mysql_close(mysql1);
+    printf( "Disconnected from database.\n");
+}
 
 void B1Interrupt() 
 {   
@@ -214,26 +249,8 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-
-    /*
-     MYSQL *conn;                                                                                       
-
-        if ((conn = mysql_init(NULL)) == NULL)                                                             
-        {                                                                                                  
-            fprintf(stderr, "Could not init DB\n");                                                 
-            return EXIT_FAILURE;                                                                             
-        }                                                                                                  
-        if (mysql_real_connect(conn, "173.194.106.119", "root", "ece4970", "scada", 0, NULL, 0) == NULL)             
-        {                                                                                                  
-            fprintf(stderr, "DB Connection Error\n");                                                        
-            return EXIT_FAILURE;                                                                             
-        }                                                                                                  
-        if (mysql_query(conn, "INSERT INTO table_1 (test) VALUES ('Hello World')") != 0)                   
-        {                                                                                                  
-            fprintf(stderr, "Query Failure\n");                                                              
-            return EXIT_FAILURE;                                                                             
-        }          
-*/
+    mysql_connect();
+    
     sem_init(&my_semaphore1,0,INIT_VALUE);
     sem_init(&my_semaphore2,0,INIT_VALUE);
     
@@ -269,7 +286,7 @@ int main(int argc, char *argv[])
         sem_post(&my_semaphore2);
     }
 
-    //mysql_close(conn);
+    mysql_close(conn);
     
     return 0;
 }
