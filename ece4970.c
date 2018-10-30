@@ -27,7 +27,7 @@
 
 #define DELAYTIME 2
 
-#define INIT_VALUE 2
+#define INIT_VALUE 0
 
 sem_t my_semaphore1,my_semaphore2;
 
@@ -117,9 +117,7 @@ int getADCValue()
 void *readingADC(void* ptr)
 {
     while(1) 
-    {
-        sem_wait(&my_semaphore1);
-        
+    {   
         ADC_Value = getADCValue();
         //printf("value=%d\n", ADC_Value);
 
@@ -127,16 +125,18 @@ void *readingADC(void* ptr)
         {
             LOWBOUND_Flag = 1;
             //printf("\nADC POWER\n\n");
+            sem_post(&my_semaphore1);
         }
 
         if(ADC_Value > HIGHBOUND)
         {
             HIGHBOUND_Flag = 1;
             //printf("\nADC BOUND\n\n");
+            sem_post(&my_semaphore1);
         }
         
         usleep(100000);
-        sem_post(&my_semaphore1);
+        
     }
 }
 /*
@@ -192,12 +192,11 @@ int main(int argc, char *argv[])
             LOWBOUND_Flag = 0;
         }
 
-        if(HIGHBOUND_Flag>3)
+        if(HIGHBOUND_Flag == 1)
         {
             printf("HIGHBOUND happened\n");
             HIGHBOUND_Flag = 0;
         }
-        sem_post(&my_semaphore1);
     }
 
     return 0;
