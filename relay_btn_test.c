@@ -187,8 +187,8 @@ void *triggerCircuit(void* ptr)
             if(HIGHBOUND_Flag == 1 || LOWBOUND_Flag == 1)
             {
                 sleep(10);
-                HIGHBOUND_Flag == 0;
-                LOWBOUND_Flag == 0;
+                HIGHBOUND_Flag = 0;
+                LOWBOUND_Flag = 0;
             }
         }
     }
