@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <wiringPi.h>
+#include <time.h>
+#include <stdlib.h>     /* atoi */
+#include <pthread.h>
+#include <math.h>
 
 #define IN1 3
 #define IN2 2
@@ -15,7 +18,7 @@ int main(void)
         printf("Not able to setup wiringpi\n");
         return -1;
     }
-        
+
     int on = 1;
 
     pinMode (IN1, OUTPUT);

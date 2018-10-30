@@ -145,23 +145,27 @@ void *readingADC(void* ptr)
 
 void *triggerCircuit(void* ptr)
 {
+    if(setupWiringPiFunction() < 0 )
+    {
+        printf("Error setup RUT\n");
+        return -1;
+    }        
+
     while(1)
     {
         usleep(1000);
         sem_wait(&my_semaphore2);
 
-        if(LOWBOUND_Count>2)
+        if(LOWBOUND_Count>3)
         {
             printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
-
             digitalWrite(IN1, 1);
             LOWBOUND_Count = 0;
         }
 
-        if(HIGHBOUND_Count>2)
+        if(HIGHBOUND_Count>3)
         {
             printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
-
             digitalWrite(IN1, 0);
             HIGHBOUND_Count = 0;
         }
@@ -172,12 +176,6 @@ void *triggerCircuit(void* ptr)
 
 int main(int argc, char *argv[]) 
 {
-    if(setupWiringPiFunction() < 0 )
-    {
-        printf("Error setup RUT\n");
-        return -1;
-    }        
-
     int rc = wiringPiSetupGpio();
 
     if (rc != 0) 
@@ -205,14 +203,14 @@ int main(int argc, char *argv[])
         if(LOWBOUND_Flag == 1)
         {
             LOWBOUND_Count++;
-            printf("LOWBOUND happened\n");
+            //printf("LOWBOUND happened\n");
             LOWBOUND_Flag = 0;
         }
 
         if(HIGHBOUND_Flag == 1)
         {
             HIGHBOUND_Count++;
-            printf("HIGHBOUND happened\n");
+            //printf("HIGHBOUND happened\n");
             HIGHBOUND_Flag = 0;
         }
 
