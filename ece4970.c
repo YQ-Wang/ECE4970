@@ -43,6 +43,7 @@ int HIGHBOUND_Count = 0;
 int ADC_Value = 0;
 
 int on = 1;
+int BTNCount=0;
 
 enum typeEvent
 {
@@ -60,6 +61,23 @@ struct logevent
     int RTUid;
     enum typeEvent typeEventID;
 } LogEvent;  
+
+void B1Interrupt() 
+{   
+    if (on == 1)
+    {
+        digitalWrite(IN1, 0);
+        on = 0;
+        BTNCount = 0;
+    }
+
+    else if(on == 0)
+    {
+        digitalWrite(IN1, 1);
+        on = 1;
+        BTNCount = 0;
+    }
+}
 
 int setupWiringPiFunction() 
 {
@@ -81,22 +99,6 @@ int setupWiringPiFunction()
     }
 }
 
-void B1Interrupt() 
-{   
-    if (on == 1)
-    {
-        digitalWrite(IN1, 0);
-        on = 0;
-        BTNCount = 0;
-    }
-
-    else if(on == 0)
-    {
-        digitalWrite(IN1, 1);
-        on = 1;
-        BTNCount = 0;
-    }
-}
 
 int getADCValue() 
 {
