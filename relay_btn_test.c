@@ -64,7 +64,7 @@ int main(void)
 
     int BTNCount=0;
     int i;
-
+    pthread_t adcReading, circuitTrigger;
     pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
     while(1)
