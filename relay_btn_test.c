@@ -100,7 +100,7 @@ void B1Interrupt()
     
     if (on == 1)
     {
-        digitalWrite(IN1, 0);
+        digitalWrite(IN1, 1);
         gettimeofday(&interruptTimeB1, NULL);
         strftime(interruptTimeB1_string, sizeof(interruptTimeB1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB1.tv_sec, &interruptTimeB1_tm));
         printf("OFF: %s\n", interruptTimeB1_string);
@@ -109,7 +109,7 @@ void B1Interrupt()
 
     else if(on == 0)
     {
-        digitalWrite(IN1, 1);
+        digitalWrite(IN1, 0);
         gettimeofday(&interruptTimeB1, NULL);
         strftime(interruptTimeB1_string, sizeof(interruptTimeB1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB1.tv_sec, &interruptTimeB1_tm));
         printf("ON: %s\n", interruptTimeB1_string);
@@ -129,7 +129,7 @@ int setupWiringPiFunction()
 
     pinMode(IN1, OUTPUT);
 
-    digitalWrite(IN1, 1);
+    digitalWrite(IN1, 0);
 
     //----------wiringpi GPIO interrupt setup ---------
     if (wiringPiISR(BTN1, INT_EDGE_RISING, &B1Interrupt)<0) 
@@ -156,8 +156,9 @@ void *triggerCircuit(void* ptr)
                 gettimeofday(&eventTime, NULL);
                 strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
                 printf("NO POWER: %s\n", eventTime_string);
-                digitalWrite(IN1, 0);
+                digitalWrite(IN1, 1);
                 LOWBOUND_Count = 0;
+                sleep(3);
             }
             
             if(HIGHBOUND_Count>2)
@@ -166,13 +167,14 @@ void *triggerCircuit(void* ptr)
                 gettimeofday(&eventTime, NULL);
                 strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
                 printf("TOO HIGH: %s\n", eventTime_string);
-                digitalWrite(IN1, 0);
+                digitalWrite(IN1, 1);
                 HIGHBOUND_Count = 0;
+                sleep(3);
             }
             
             if(REGULAR_Count>7)
             {
-                digitalWrite(IN1, 1);
+                digitalWrite(IN1, 0);
                 REGULAR_Count = 0;
             }
         }
