@@ -145,6 +145,48 @@ void *readingADC(void* ptr)
 
 void *triggerCircuit(void* ptr)
 {
+    if (wiringPiSetup() < 0) 
+    {
+        printf("Not able to setup wiringpi\n");
+        exit(-1);
+    }
+          
+    int on = 1;
+
+    pinMode (IN1, OUTPUT);
+    pinMode (BTN1, INPUT);
+    digitalWrite(IN1, 1);
+
+    int BTNCount=0;
+    int i;
+
+    while(1)
+    {   
+        for(i=0;i<20;i++)
+        {
+            if(digitalRead(BTN1) == HIGH)
+            {
+                BTNCount++;
+            }
+        }
+
+        if(BTNCount>16)
+        {
+            if (on == 1)
+            {
+                digitalWrite(IN1, 0);
+                on = 0;
+                BTNCount = 0;
+            }
+
+            else if(on == 0)
+            {
+                digitalWrite(IN1, 1);
+                on = 1;
+                BTNCount = 0;
+            }
+        }
+    }
     /*
     if(setupWiringPiFunction() < 0 )
     {
@@ -153,7 +195,8 @@ void *triggerCircuit(void* ptr)
     }        
     */
 
-    if (wiringPiSetup () < 0) 
+/*
+    if (wiringPiSetup() < 0) 
     {
         printf("Unable to setup wiringPi\n");
         exit(-1);
@@ -182,7 +225,7 @@ void *triggerCircuit(void* ptr)
             HIGHBOUND_Count = 0;
         }
     }
-
+*/
 }
 
 
