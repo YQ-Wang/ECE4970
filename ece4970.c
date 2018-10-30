@@ -136,7 +136,7 @@ int setupWiringPiFunction()
     digitalWrite(IN1, 1);
 
     //-----------------------wiringpi GPIO interrupt setup ------
-    if ( wiringPiISR (BTN1, INT_EDGE_RISING, &B1Interrupt) < 0 ) 
+    if ( wiringPiISR (BTN1, INT_EDGE_R, &B1Interrupt) < 0 ) 
     {
         printf("Not able to setup IRS\n");
         return -1;

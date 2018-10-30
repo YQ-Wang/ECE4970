@@ -245,11 +245,7 @@ void *readingADC(void* ptr)
 
 int main(void)
 {
-    if (wiringPiSetup() < 0) 
-    {
-        printf("Not able to setup wiringpi\n");
-        return -1;
-    }
+    setupWiringPiFunction();
     
     mysql_connect();
 
