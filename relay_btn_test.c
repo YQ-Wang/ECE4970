@@ -188,7 +188,7 @@ void *triggerCircuit(void* ptr)
             {
                 sleep(10);
                 HIGHBOUND_Flag == 0;
-                HIGHBOUND_Flag == 0;
+                LOWBOUND_Flag == 0;
             }
         }
     }
