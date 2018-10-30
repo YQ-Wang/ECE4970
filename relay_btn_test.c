@@ -146,7 +146,7 @@ void *triggerCircuit(void* ptr)
     while(1)
     {
         usleep(10000);
-        sem_wait(&my_semaphore1);
+        //sem_wait(&my_semaphore1);
 
         if(BTN1_Flag == 0)
         {
@@ -172,7 +172,7 @@ void *triggerCircuit(void* ptr)
                 sleep(3);
             }
             
-            if(REGULAR_Count>7)
+            if(REGULAR_Count>20)
             {
                 gettimeofday(&eventTime, NULL);
                 strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
@@ -256,7 +256,7 @@ void *readingADC(void* ptr)
         
         usleep(10000);
 
-        sem_post(&my_semaphore1);
+        //sem_post(&my_semaphore1);
     }
 }
 
