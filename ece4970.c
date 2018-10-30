@@ -66,17 +66,8 @@ struct logevent
     enum typeEvent typeEventID;
 } LogEvent;  
 
-void mysql_connect (void)
+void mysql_connect(void)
 {
-    //initialize MYSQL object for connections
-	mysql1 = mysql_init(NULL);
-
-    if(mysql1 == NULL)
-    {
-        fprintf(stderr, "%s\n", mysql_error(mysql1));
-        return;
-    }
-
     //Connect to the database
     if(mysql_real_connect(mysql1, DATABASE_IP, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME, 0, NULL, 0) == NULL)
     {
