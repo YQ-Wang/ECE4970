@@ -105,6 +105,14 @@ void B1Interrupt()
 
 int setupWiringPiFunction() 
 {
+    int rc = wiringPiSetupGpio();
+
+    if (rc != 0) 
+    {
+        printf("Failed to wiringPiSetupGpio()\n");
+        return 0;
+    }
+
     // sets up the wiringPi library
     if (wiringPiSetup () < 0) 
     {
@@ -159,7 +167,6 @@ void *triggerCircuit(void* ptr)
         */
     }
 }
-
 
 int getADCValue() 
 {
