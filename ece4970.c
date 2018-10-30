@@ -112,7 +112,7 @@ void *readingADC(void* ptr)
 {
     while(1) 
     {
-        value = getADCValue();
+        int value = getADCValue();
         printf("value=%d\n", value);
 
         if(value < LOWBOUND)
