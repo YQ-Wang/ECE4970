@@ -174,8 +174,12 @@ void *triggerCircuit(void* ptr)
             
             if(REGULAR_Count>7)
             {
+                gettimeofday(&eventTime, NULL);
+                strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
+                printf("GOOD: %s\n", eventTime_string);
                 digitalWrite(IN1, 0);
                 REGULAR_Count = 0;
+                sleep(3);
             }
         }
     }
