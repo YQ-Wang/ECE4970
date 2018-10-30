@@ -112,16 +112,8 @@ int setupWiringPiFunction()
         printf("Failed to wiringPiSetupGpio()\n");
         return 0;
     }
-    /*
-    // sets up the wiringPi library
-    if (wiringPiSetup () < 0) 
-    {
-        printf("Unable to setup wiringPi\n");
-        return -1;
-    }
-    */
+
     pinMode(IN1, OUTPUT);
-    //pinMode(BTN1, INPUT);
 
     digitalWrite(IN1, 1);
 
@@ -140,31 +132,21 @@ void *triggerCircuit(void* ptr)
     while(1)
     {
         usleep(10000);
-        //sem_wait(&my_semaphore1);
+        sem_wait(&my_semaphore1);
 
-        /*for(i=0;i<10;i++)
-        {
-            digitalWrite(IN1, 0);
-            sleep(1);
-            digitalWrite(IN1, 1);
-            sleep(1);
-        }
-*/
-        /*
         if(LOWBOUND_Count>3)
         {
-            //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
+            printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
             digitalWrite(IN1, 0);
             LOWBOUND_Count = 0;
         }
 
         if(HIGHBOUND_Count>3)
         {
-            //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
+            printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
             digitalWrite(IN1, 0);
             HIGHBOUND_Count = 0;
         }
-        */
     }
 }
 
@@ -243,9 +225,9 @@ void *readingADC(void* ptr)
             //printf("\nADC BOUND\n\n");
         }
         
-        usleep(100000);
+        usleep(10000);
 
-        //sem_post(&my_semaphore1);
+        sem_post(&my_semaphore1);
     }
 }
 
@@ -256,10 +238,11 @@ int main(void)
 
     mysql_connect();
 
-    //int BTNCount=0;
-    //int i;
+    sem_init(&my_semaphore1,0,INIT_VALUE);
+
     pthread_t adcReading, circuitTrigger;
     pthread_create(&adcReading, NULL, readingADC, NULL);
+    usleep(1000);
     pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
     while(1)
