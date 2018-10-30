@@ -223,28 +223,19 @@ void *readingADC(void* ptr)
 
 void *triggerCircuit(void* ptr)
 {       
-    printf("123\n");
-
-    if(setupWiringPiFunction() < 0 )
-    {
-        printf("Error setup RUT\n");
-        exit(-1);
-    }        
-
     int i;
 
     while(1)
     {
-        printf("hello\n");
         usleep(10000);
         //sem_wait(&my_semaphore1);
 
         for(i=0;i<10;i++)
         {
             digitalWrite(IN1, 0);
-            usleep(10000);
+            sleep(1);
             digitalWrite(IN1, 1);
-            usleep(10000);
+            sleep(1);
         }
 
         /*
@@ -267,6 +258,12 @@ void *triggerCircuit(void* ptr)
 
 int main(int argc, char *argv[]) 
 {
+    if(setupWiringPiFunction() < 0 )
+    {
+        printf("Error setup RUT\n");
+        exit(-1);
+    }      
+
     int rc = wiringPiSetupGpio();
 
     if (rc != 0) 
@@ -282,10 +279,12 @@ int main(int argc, char *argv[])
     
     pthread_t adcReading, circuitTrigger;
     pthread_create(&adcReading, NULL, readingADC, NULL);
+    usleep(1000);
     pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
     while(1)  
     {
+        sleep(1);
         //sem_wait(&my_semaphore1);
 
         //usleep(50000);
