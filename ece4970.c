@@ -7,7 +7,6 @@
 #include <semaphore.h>
 #include <math.h>
 
-
 // ADC
 #define CLK 6
 #define DIO 13
@@ -28,7 +27,7 @@
 
 #define DELAYTIME 2
 
-#define INIT_VALUE 1 
+#define INIT_VALUE 2
 
 sem_t my_semaphore1,my_semaphore2;
 
