@@ -216,7 +216,7 @@ void *readingADC(void* ptr)
         HIGHBOUND_Flag = 0;
 
         ADC_Value = getADCValue();
-        //printf("value=%d\n", ADC_Value);
+        printf("value=%d\n", ADC_Value);
 
         if(ADC_Value < LOWBOUND)
         {
@@ -246,7 +246,7 @@ void *readingADC(void* ptr)
 int main(void)
 {
     setupWiringPiFunction();
-    
+
     mysql_connect();
 
     //int BTNCount=0;
@@ -257,9 +257,7 @@ int main(void)
 
     while(1)
     {   
-
         sleep(1);
-
     }
     
     mysql_disconnect();
