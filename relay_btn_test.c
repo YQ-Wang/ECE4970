@@ -33,7 +33,6 @@ int main(void)
             {
                 BTNCount++;
             }
-            usleep(10);
         }
 
         if (BTNCount>6)
@@ -52,8 +51,6 @@ int main(void)
                 BTNCount = 0;
             }
         }
-
-        usleep(10);
     }
 
     return 0;
