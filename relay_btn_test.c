@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <wiringPi.h>
 
 #define IN1 3
@@ -30,6 +31,7 @@ int main(void)
         for(i=0;i<10;i++)
         {
             if (digitalRead(BTN1) == HIGH)
+            usleep(10);
             BTNCount++;
         }
 
