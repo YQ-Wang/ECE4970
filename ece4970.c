@@ -8,6 +8,8 @@
 #include <semaphore.h>
 #include <math.h>
 #include <mysql/mysql.h>
+#include <sys/time.h>
+#include <sys/timerfd.h>
 
 #define DATABASE_NAME		"scada"
 #define DATABASE_IP         "35.192.121.176"
@@ -36,6 +38,9 @@ MYSQL *mysql1;
 #define DELAYTIME 2
 
 #define INIT_VALUE 0
+
+struct timeval eventTime;
+struct timeval interruptTimeB1, lastInterruptTimeB1;
 
 sem_t my_semaphore1,my_semaphore2;
 
@@ -88,7 +93,7 @@ void mysql_connect(void)
     }
 }
 
-void mysql_disconnect (void)
+void mysql_disconnect(void)
 {
     mysql_close(mysql1);
     printf( "Disconnected from database.\n");
@@ -195,12 +200,16 @@ void *readingADC(void* ptr)
         if(ADC_Value < LOWBOUND)
         {
             LOWBOUND_Flag = 1;
+            gettimeofday(&eventTime, NULL);
+            printf("%ld.%06ld\n", eventTime.ru_stime.tv_sec, eventTime.ru_stime.tv_usec);
             printf("\nADC POWER\n\n");
         }
 
         if(ADC_Value > HIGHBOUND)
         {
             HIGHBOUND_Flag = 1;
+            gettimeofday(&eventTime, NULL);
+            printf("%ld.%06ld\n", eventTime.ru_stime.tv_sec, eventTime.ru_stime.tv_usec);
             printf("\nADC BOUND\n\n");
         }
         
