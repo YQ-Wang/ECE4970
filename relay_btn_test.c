@@ -47,6 +47,35 @@ void *triggerCircuit(void* ptr)
     }
 }
 
+void *readingADC(void* ptr)
+{       
+    //int i;
+
+    while(1)
+    {
+        usleep(10000);
+        //sem_wait(&my_semaphore1);
+
+        printf("hello\n");
+
+        /*
+        if(LOWBOUND_Count>3)
+        {
+            //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
+            digitalWrite(IN1, 0);
+            LOWBOUND_Count = 0;
+        }
+
+        if(HIGHBOUND_Count>3)
+        {
+            //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
+            digitalWrite(IN1, 0);
+            HIGHBOUND_Count = 0;
+        }
+        */
+    }
+}
+
 
 int main(void)
 {
@@ -65,6 +94,7 @@ int main(void)
     int BTNCount=0;
     int i;
     pthread_t adcReading, circuitTrigger;
+    pthread_create(&adcReading, NULL, readingADC, NULL);
     pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
     while(1)
