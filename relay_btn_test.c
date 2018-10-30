@@ -22,14 +22,14 @@ void *triggerCircuit(void* ptr)
         usleep(10000);
         //sem_wait(&my_semaphore1);
 
-        for(i=0;i<10;i++)
+        /*for(i=0;i<10;i++)
         {
             digitalWrite(IN1, 0);
             sleep(1);
             digitalWrite(IN1, 1);
             sleep(1);
         }
-
+*/
         /*
         if(LOWBOUND_Count>3)
         {
@@ -54,7 +54,7 @@ void B1Interrupt()
     printf("BTN1 Pressed\n");
     if (on == 1)
     {
-        //digitalWrite(IN1, 0);
+        digitalWrite(IN1, 0);
         printf("OFF\n");
         on = 0;
         //BTNCount = 0;
@@ -62,7 +62,7 @@ void B1Interrupt()
 
     else if(on == 0)
     {
-        //digitalWrite(IN1, 1);
+        digitalWrite(IN1, 1);
         printf("ON\n");
         on = 1;
         //BTNCount = 0;
@@ -79,7 +79,7 @@ void *readingADC(void* ptr)
         usleep(10000);
         //sem_wait(&my_semaphore1);
 
-        printf("hello\n");
+        //printf("hello\n");
 
         /*
         if(LOWBOUND_Count>3)
