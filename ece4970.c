@@ -29,6 +29,8 @@
 int LOWBOUND_count = 0;
 int HIGHBOUND_count = 0;
 
+int value;
+
 enum typeEvent
 {
     BTNOFF,
@@ -110,8 +112,8 @@ void *readingADC(void* ptr)
 {
     while(1) 
     {
-        int value = getADCValue();
-        printf("value=%d\n", value);
+        value = getADCValue();
+        //printf("value=%d\n", value);
 
         if(value < LOWBOUND)
         {
@@ -160,16 +162,16 @@ int main(int argc, char *argv[])
     pthread_create(&adcReading, NULL, readingADC, NULL);
     //pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
+    printf("value=%d\n", value);
+    
     if(LOWBOUND_count>3)
     {
         printf("LOWBOUND_count = %d\n", LOWBOUND_count);
-
     }
 
     if(HIGHBOUND_count>3)
     {
         printf("HIGHBOUND_count = %d\n", HIGHBOUND_count);
-    
     }
 
     return 0;
