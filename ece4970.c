@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <wiringPi.h>
+#include <wiringPiSPI.h>
 #include <time.h>
 #include <stdlib.h>     /* atoi */
 #include <pthread.h>
@@ -177,63 +178,14 @@ void *readingADC(void* ptr)
 
 void *triggerCircuit(void* ptr)
 {
-        // Configure the SPI
+    // Configure the SPI
     if(wiringPiSPISetup(SPI_CHANNEL, SPI_SPEED) < 0) 
     {
         printf("wiringPiSPISetup failed\n");
         //return -1 ;
-    }
-          
-    int on = 1;
-
-    pinMode (IN1, OUTPUT);
-    pinMode (BTN1, INPUT);
-    digitalWrite(IN1, 1);
-
-    int BTNCount=0;
-    int i;
-
-    while(1)
-    {   
-        for(i=0;i<20;i++)
-        {
-            if(digitalRead(BTN1) == HIGH)
-            {
-                BTNCount++;
-            }
-        }
-
-        if(BTNCount>16)
-        {
-            if (on == 1)
-            {
-                digitalWrite(IN1, 0);
-                on = 0;
-                BTNCount = 0;
-            }
-
-            else if(on == 0)
-            {
-                digitalWrite(IN1, 1);
-                on = 1;
-                BTNCount = 0;
-            }
-        }
-    }
-
-    
-
-/*
-    if (wiringPiSetup() < 0) 
-    {
-        printf("Unable to setup wiringPi\n");
         exit(-1);
     }
-    
-    pinMode(IN1, OUTPUT);
-    pinMode(BTN1, INPUT);
-    digitalWrite(IN1, 1);
-
+          
     while(1)
     {
         usleep(10000);
@@ -242,18 +194,17 @@ void *triggerCircuit(void* ptr)
         if(LOWBOUND_Count>3)
         {
             printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
-            digitalWrite(IN1, 0);
+            //digitalWrite(IN1, 0);
             LOWBOUND_Count = 0;
         }
 
         if(HIGHBOUND_Count>3)
         {
             printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
-            digitalWrite(IN1, 0);
+            //digitalWrite(IN1, 0);
             HIGHBOUND_Count = 0;
         }
     }
-*/
 }
 
 
