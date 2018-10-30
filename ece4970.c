@@ -128,18 +128,17 @@ void *readingADC(void* ptr)
         {
             LOWBOUND_Flag = 1;
             //printf("\nADC POWER\n\n");
-            sem_post(&my_semaphore1);
         }
 
         if(ADC_Value > HIGHBOUND)
         {
             HIGHBOUND_Flag = 1;
             //printf("\nADC BOUND\n\n");
-            sem_post(&my_semaphore1);
         }
         
         usleep(100000);
-        
+
+        sem_post(&my_semaphore1);
     }
 }
 /*
