@@ -161,6 +161,7 @@ void *triggerCircuit(void* ptr)
     
     pinMode(IN1, OUTPUT);
     pinMode(BTN1, INPUT);
+    digitalWrite(IN1, 1);
 
     while(1)
     {
