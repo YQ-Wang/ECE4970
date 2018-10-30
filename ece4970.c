@@ -118,6 +118,9 @@ void *readingADC(void* ptr)
 {
     while(1) 
     {   
+        LOWBOUND_Flag = 0;
+        HIGHBOUND_Flag = 0;
+
         ADC_Value = getADCValue();
         //printf("value=%d\n", ADC_Value);
 
