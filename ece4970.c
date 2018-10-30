@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <wiringPi.h>
+#include <wiringPiSPI.h>
 #include <time.h>
 #include <stdlib.h>     /* atoi */
 #include <pthread.h>
@@ -100,6 +101,7 @@ void mysql_disconnect(void)
 
 void B1Interrupt() 
 {   
+    wiringPiSetup();
     printf("BTN1 Pressed\n");
     if (on == 1)
     {
@@ -134,7 +136,7 @@ int setupWiringPiFunction()
     digitalWrite(IN1, 1);
 
     //-----------------------wiringpi GPIO interrupt setup ------
-    if ( wiringPiISR (BTN1, INT_EDGE_FALLING, &B1Interrupt) < 0 ) 
+    if ( wiringPiISR (BTN1, INT_EDGE_RISING, &B1Interrupt) < 0 ) 
     {
         printf("Not able to setup IRS\n");
         return -1;
