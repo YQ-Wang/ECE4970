@@ -7,9 +7,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <math.h>
-
-#define SPI_CHANNEL         0// 0 or 1
-#define SPI_SPEED     2000000    // Max speed is 3.6 MHz when VDD = 5 V
+#include <mysql/mysql.h>   
 
 // ADC
 #define CLK 6
@@ -91,10 +89,12 @@ int setupWiringPiFunction()
     }
     
     pinMode(IN1, OUTPUT);
-    pinMode(BTN1, INPUT);
+    //pinMode(BTN1, INPUT);
+
+    digitalWrite(IN1, 1);
 
     //-----------------------wiringpi GPIO interrupt setup ------
-    if ( wiringPiISR (BTN1, INT_EDGE_BOTH, &B1Interrupt) < 0 ) 
+    if ( wiringPiISR (BTN1, INT_EDGE_FALL, &B1Interrupt) < 0 ) 
     {
         printf("Not able to setup IRS\n");
         return -1;
@@ -192,7 +192,7 @@ void *triggerCircuit(void* ptr)
 
         if(HIGHBOUND_Count>3)
         {
-            //sprintf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
+            //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
             //digitalWrite(IN1, 0);
             HIGHBOUND_Count = 0;
         }
@@ -201,7 +201,6 @@ void *triggerCircuit(void* ptr)
 
 int main(int argc, char *argv[]) 
 {
-        
     if(setupWiringPiFunction() < 0 )
     {
         printf("Error setup RUT\n");
@@ -216,6 +215,26 @@ int main(int argc, char *argv[])
         return 0;
     }
 
+
+    /*
+     MYSQL *conn;                                                                                       
+
+        if ((conn = mysql_init(NULL)) == NULL)                                                             
+        {                                                                                                  
+            fprintf(stderr, "Could not init DB\n");                                                 
+            return EXIT_FAILURE;                                                                             
+        }                                                                                                  
+        if (mysql_real_connect(conn, "173.194.106.119", "root", "ece4970", "scada", 0, NULL, 0) == NULL)             
+        {                                                                                                  
+            fprintf(stderr, "DB Connection Error\n");                                                        
+            return EXIT_FAILURE;                                                                             
+        }                                                                                                  
+        if (mysql_query(conn, "INSERT INTO table_1 (test) VALUES ('Hello World')") != 0)                   
+        {                                                                                                  
+            fprintf(stderr, "Query Failure\n");                                                              
+            return EXIT_FAILURE;                                                                             
+        }          
+*/
     sem_init(&my_semaphore1,0,INIT_VALUE);
     sem_init(&my_semaphore2,0,INIT_VALUE);
     
@@ -226,6 +245,8 @@ int main(int argc, char *argv[])
     while(1)  
     {
         sem_wait(&my_semaphore1);
+
+        //usleep(50000);
 
         if(LOWBOUND_Flag == 0 && HIGHBOUND_Flag == 0)
         {
@@ -249,5 +270,7 @@ int main(int argc, char *argv[])
         sem_post(&my_semaphore2);
     }
 
+    //mysql_close(conn);
+    
     return 0;
 }
