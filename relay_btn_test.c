@@ -39,11 +39,15 @@ MYSQL *mysql1;
 
 #define INIT_VALUE 0
 
-struct timeval eventTime;
-struct timeval interruptTimeB1, lastInterruptTimeB1;
+struct tm eventTime_tm;
+struct tm interruptTimeB1_tm;
 
-char eventTime_string[50];
-char interruptTimeB1_string[50];
+struct timeval eventTime;
+struct timeval interruptTimeB1;
+
+char eventTime_string[64];
+char interruptTimeB1_string[64];
+
 
 
 sem_t my_semaphore1,my_semaphore2;
@@ -93,7 +97,7 @@ void B1Interrupt()
     {
         digitalWrite(IN1, 0);
         gettimeofday(&interruptTimeB1, NULL);
-        interruptTimeB1_string = ctime(&interruptTimeB1);
+        strftime(interruptTimeB1_string, sizeof(interruptTimeB1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB1.tv_sec, &interruptTimeB1_tm));
         printf("OFF: %s\n", interruptTimeB1_string);
         on = 0;
     }
@@ -102,7 +106,7 @@ void B1Interrupt()
     {
         digitalWrite(IN1, 1);
         gettimeofday(&interruptTimeB1, NULL);
-        interruptTimeB1_string = ctime(&interruptTimeB1);
+        strftime(interruptTimeB1_string, sizeof(interruptTimeB1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB1.tv_sec, &interruptTimeB1_tm));
         printf("ON: %s\n", interruptTimeB1_string);
         on = 1;
     }
@@ -143,7 +147,7 @@ void *triggerCircuit(void* ptr)
         {
             //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
             gettimeofday(&eventTime, NULL);
-            eventTime_string = ctime(&eventTime);
+            strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
             printf("ON: %s\n", eventTime_string);
             digitalWrite(IN1, 0);
             LOWBOUND_Count = 0;
@@ -153,7 +157,7 @@ void *triggerCircuit(void* ptr)
         {
             //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
             gettimeofday(&eventTime, NULL);
-            eventTime_string = ctime(&eventTime);
+            strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
             printf("ON: %s\n", eventTime_string);
             digitalWrite(IN1, 0);
             HIGHBOUND_Count = 0;
