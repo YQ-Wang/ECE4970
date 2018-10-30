@@ -161,13 +161,13 @@ void *readingADC(void* ptr)
         if(ADC_Value < LOWBOUND)
         {
             LOWBOUND_Flag = 1;
-            //printf("\nADC POWER\n\n");
+            printf("\nADC POWER\n\n");
         }
 
         if(ADC_Value > HIGHBOUND)
         {
             HIGHBOUND_Flag = 1;
-            //printf("\nADC BOUND\n\n");
+            printf("\nADC BOUND\n\n");
         }
         
         usleep(100000);

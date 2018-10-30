@@ -52,32 +52,6 @@ struct timeval interruptTimeB2, lastInterruptTimeB2;
 #define SPI_SPEED     2000000    // Max speed is 3.6 MHz when VDD = 5 V
 #define ADC_CHANNEL       3    // Between 0 and 3
 
-//simple seven segment display program
-void sevenSeg(int decimal){
-    //We've only used the seven segment display for the status of buttons and switches
-    if(decimal < 8){
-        
-        //decimal to binary
-        digitalWrite(DP, HIGH);
-        int a[4] = {0};
-        int i;
-        for(i = 0; decimal > 0; i++){
-            a[i] = decimal % 2;
-            decimal = decimal / 2;
-        }
-        //MSB first LSB last
-        for(i = 3; i>= 0; i--){
-            if(i == 3)
-                digitalWrite(D, a[i]);
-            else if(i == 2)
-                digitalWrite(C, a[i]);
-            else if(i == 1)
-                digitalWrite(B, a[i]);
-            else if(i == 0)
-                digitalWrite(A, a[i]);
-        }
-    }
-}
 
 //Enums used for tracking event
 //can be seeing as "EVENT ID" from 0 to 14
