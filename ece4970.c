@@ -202,8 +202,8 @@ void *readingADC(void* ptr)
             //LOWBOUND_Flag = 1;
             LOWBOUND_Count++;
             gettimeofday(&eventTime, NULL);
-            printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
-            printf("\nADC POWER\n\n");
+            //printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
+            //printf("\nADC POWER\n\n");
         }
 
         if(ADC_Value > HIGHBOUND)
@@ -211,8 +211,8 @@ void *readingADC(void* ptr)
             //HIGHBOUND_Flag = 1;
             HIGHBOUND_Count++;
             gettimeofday(&eventTime, NULL);
-            printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
-            printf("\nADC BOUND\n\n");
+            //printf("%ld.%06ld\n", eventTime.tv_sec, eventTime.tv_usec);
+            //printf("\nADC BOUND\n\n");
         }
         
         usleep(100000);
@@ -223,6 +223,8 @@ void *readingADC(void* ptr)
 
 void *triggerCircuit(void* ptr)
 {       
+    printf("123\n");
+
     if(setupWiringPiFunction() < 0 )
     {
         printf("Error setup RUT\n");
@@ -233,6 +235,7 @@ void *triggerCircuit(void* ptr)
 
     while(1)
     {
+        printf("hello\n");
         usleep(10000);
         //sem_wait(&my_semaphore1);
 
