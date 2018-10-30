@@ -57,6 +57,9 @@ int LOWBOUND_Count = 0;
 int HIGHBOUND_Count = 0;
 int REGULAR_Count = 0;
 
+int LOWBOUND_Flag = 0;
+int HIGHBOUND_Flag = 0;
+
 int ADC_Value = 0;
 
 int on = 1;
@@ -158,7 +161,7 @@ void *triggerCircuit(void* ptr)
                 printf("\nNO POWER: %s\n\n", eventTime_string);
                 digitalWrite(IN1, 1);
                 LOWBOUND_Count = 0;
-                sleep(10);
+                LOWBOUND_Flag = 1;
             }
             
             if(HIGHBOUND_Count>2)
@@ -169,16 +172,23 @@ void *triggerCircuit(void* ptr)
                 printf("\nTOO HIGH: %s\n\n", eventTime_string);
                 digitalWrite(IN1, 1);
                 HIGHBOUND_Count = 0;
-                sleep(10);
+                HIGHBOUND_Flag = 1;
             }
             
-            if(REGULAR_Count>20)
+            if(REGULAR_Count>20 && HIGHBOUND_Flag == 0 && LOWBOUND_Flag == 0)
             {
                 gettimeofday(&eventTime, NULL);
                 strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
                 printf("GOOD: %s\n", eventTime_string);
                 digitalWrite(IN1, 0);
                 REGULAR_Count = 0;
+            }
+
+            if(HIGHBOUND_Flag == 1 || LOWBOUND_Flag == 1)
+            {
+                sleep(10);
+                HIGHBOUND_Flag == 0;
+                HIGHBOUND_Flag == 0;
             }
         }
     }
