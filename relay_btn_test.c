@@ -52,10 +52,10 @@ char interruptTimeB1_string[64];
 
 sem_t my_semaphore1,my_semaphore2;
 
-int LOWBOUND_Flag = 0;
-int HIGHBOUND_Flag = 0;
+
 int LOWBOUND_Count = 0;
 int HIGHBOUND_Count = 0;
+int REGULAR_Count = 0;
 
 int ADC_Value = 0;
 
@@ -166,7 +166,8 @@ void *triggerCircuit(void* ptr)
                 digitalWrite(IN1, 0);
                 LOWBOUND_Count = 0;
             }
-            else if(HIGHBOUND_Count>2)
+            
+            if(HIGHBOUND_Count>2)
             {
                 //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
                 gettimeofday(&eventTime, NULL);
@@ -175,7 +176,8 @@ void *triggerCircuit(void* ptr)
                 digitalWrite(IN1, 0);
                 HIGHBOUND_Count = 0;
             }
-            else
+            
+            if(REGULAR_Count>100)
             {
                 digitalWrite(IN1, 1);
             }
@@ -234,9 +236,6 @@ void *readingADC(void* ptr)
 {
     while(1) 
     {   
-        LOWBOUND_Flag = 0;
-        HIGHBOUND_Flag = 0;
-
         ADC_Value = getADCValue();
         //printf("value=%d\n", ADC_Value);
 
@@ -248,6 +247,11 @@ void *readingADC(void* ptr)
         if(ADC_Value > HIGHBOUND)
         {
             HIGHBOUND_Count++;
+        }
+
+        if((ADC_Value > LOWBOUND) && (ADC_Value < HIGHBOUND))
+        {
+            REGULAR_Count++;
         }
         
         usleep(10000);
