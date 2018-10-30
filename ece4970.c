@@ -8,7 +8,6 @@
 #include <semaphore.h>
 #include <math.h>
 
-
 #define SPI_CHANNEL         0// 0 or 1
 #define SPI_SPEED     2000000    // Max speed is 3.6 MHz when VDD = 5 V
 
@@ -65,7 +64,8 @@ struct logevent
 
 void B1Interrupt() 
 {   
-    if (on == 1)
+    printf("BTN1 Pressed\n");
+/*    if (on == 1)
     {
         digitalWrite(IN1, 0);
         on = 0;
@@ -78,6 +78,7 @@ void B1Interrupt()
         on = 1;
         BTNCount = 0;
     }
+*/
 }
 
 int setupWiringPiFunction() 
@@ -99,7 +100,6 @@ int setupWiringPiFunction()
         return -1;
     }
 }
-
 
 int getADCValue() 
 {
@@ -177,15 +177,7 @@ void *readingADC(void* ptr)
 }
 
 void *triggerCircuit(void* ptr)
-{
-    // Configure the SPI
-    if(wiringPiSPISetup(SPI_CHANNEL, SPI_SPEED) < 0) 
-    {
-        printf("wiringPiSPISetup failed\n");
-        //return -1 ;
-        exit(-1);
-    }
-          
+{          
     while(1)
     {
         usleep(10000);
@@ -193,20 +185,19 @@ void *triggerCircuit(void* ptr)
 
         if(LOWBOUND_Count>3)
         {
-            printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
+            //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
             //digitalWrite(IN1, 0);
             LOWBOUND_Count = 0;
         }
 
         if(HIGHBOUND_Count>3)
         {
-            printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
+            //sprintf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
             //digitalWrite(IN1, 0);
             HIGHBOUND_Count = 0;
         }
     }
 }
-
 
 int main(int argc, char *argv[]) 
 {
