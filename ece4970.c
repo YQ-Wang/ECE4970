@@ -291,11 +291,15 @@ int main(int argc, char *argv[])
     pthread_t adcReading, circuitTrigger;
     pthread_create(&adcReading, NULL, readingADC, NULL);
     usleep(1000);
-    pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
+    //pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
     while(1)  
     {
         sleep(1);
+        digitalWrite(IN1, 0);
+            sleep(1);
+            digitalWrite(IN1, 1);
+            sleep(1);
         //sem_wait(&my_semaphore1);
 
         //usleep(50000);
