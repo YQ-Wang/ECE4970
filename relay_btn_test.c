@@ -94,8 +94,6 @@ void mysql_disconnect(void)
 
 void B1Interrupt() 
 {   
-    BTN1_Count++;
-
     BTN1_Flag = 1;
 
     printf("BTN1 Pressed\n");
@@ -116,11 +114,6 @@ void B1Interrupt()
         strftime(interruptTimeB1_string, sizeof(interruptTimeB1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB1.tv_sec, &interruptTimeB1_tm));
         printf("ON: %s\n", interruptTimeB1_string);
         on = 1;
-    }
-
-    if(BTN1_Count%2 == 0)
-    {
-        BTN1_Flag = 0;
     }
 }
 
@@ -177,7 +170,7 @@ void *triggerCircuit(void* ptr)
                 HIGHBOUND_Count = 0;
             }
             
-            if(REGULAR_Count>100)
+            if(REGULAR_Count>7)
             {
                 digitalWrite(IN1, 1);
             }
