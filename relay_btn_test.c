@@ -31,31 +31,36 @@ int main(void)
 
     while(1)
     {   
-        for(i=0;i<20;i++)
-        {
-            if(digitalRead(BTN1) == HIGH)
-            {
-                BTNCount++;
-            }
-        }
 
-        if(BTNCount>16)
-        {
-            if (on == 1)
-            {
-                digitalWrite(IN1, 0);
-                on = 0;
-                BTNCount = 0;
-            }
+        sleep(1);
+        digitalWrite(IN1, 0);
+        sleep(1);
+        digitalWrite(IN1, 1);
+    //     for(i=0;i<20;i++)
+    //     {
+    //         if(digitalRead(BTN1) == HIGH)
+    //         {
+    //             BTNCount++;
+    //         }
+    //     }
 
-            else if(on == 0)
-            {
-                digitalWrite(IN1, 1);
-                on = 1;
-                BTNCount = 0;
-            }
-        }
+    //     if(BTNCount>16)
+    //     {
+    //         if (on == 1)
+    //         {
+    //             digitalWrite(IN1, 0);
+    //             on = 0;
+    //             BTNCount = 0;
+    //         }
+
+    //         else if(on == 0)
+    //         {
+    //             digitalWrite(IN1, 1);
+    //             on = 1;
+    //             BTNCount = 0;
+    //         }
+    //     }
+    // }
     }
-
     return 0;
 }
