@@ -27,7 +27,7 @@ int main(void)
 
     while(1)
     {   
-        for(i=0;i<10;i++)
+        for(i=0;i<20;i++)
         {
             if(digitalRead(BTN1) == HIGH)
             {
@@ -35,7 +35,7 @@ int main(void)
             }
         }
 
-        if(BTNCount>5)
+        if(BTNCount>16)
         {
             if (on == 1)
             {
