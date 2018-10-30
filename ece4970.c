@@ -258,11 +258,22 @@ void *triggerCircuit(void* ptr)
 
 int main(int argc, char *argv[]) 
 {
-    if(setupWiringPiFunction() < 0 )
+    // if(setupWiringPiFunction() < 0 )
+    // {
+    //     printf("Error setup RUT\n");
+    //     exit(-1);
+    // }      
+
+    if (wiringPiSetup () < 0) 
     {
-        printf("Error setup RUT\n");
-        exit(-1);
-    }      
+        printf("Unable to setup wiringPi\n");
+        return -1;
+    }
+    
+    pinMode(IN1, OUTPUT);
+    //pinMode(BTN1, INPUT);
+
+    digitalWrite(IN1, 1);
 
     int rc = wiringPiSetupGpio();
 
