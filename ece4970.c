@@ -94,7 +94,7 @@ int setupWiringPiFunction()
     pinMode(BTN1, INPUT);
 
     //-----------------------wiringpi GPIO interrupt setup ------
-    if ( wiringPiISR (BTN1, INT_EDGE_FALLING, &B1Interrupt) < 0 ) 
+    if ( wiringPiISR (BTN1, INT_EDGE_BOTH, &B1Interrupt) < 0 ) 
     {
         printf("Not able to setup IRS\n");
         return -1;
@@ -150,12 +150,6 @@ int getADCValue()
 
 void *readingADC(void* ptr)
 {
-        if(wiringPiSPISetup(SPI_CHANNEL, SPI_SPEED) < 0) 
-        {
-            printf("wiringPiSPISetup failed\n");
-            exit(-1);
-        }
-
     while(1) 
     {   
         LOWBOUND_Flag = 0;
