@@ -41,15 +41,15 @@ int main(void)
             {
                 digitalWrite(IN1, 0);
                 on = 0;
+                BTNCount = 0;
             }
             else if(on == 0)
             {
                 digitalWrite(IN1, 1);
                 on = 1;
+                BTNCount = 0;
             }
         }
-
-        BTNCount = 0;
     }
 
     return 0;
