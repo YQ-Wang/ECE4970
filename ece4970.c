@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <wiringPi.h>
-#include <wiringPiSPI.h>
 #include <time.h>
 #include <stdlib.h>     /* atoi */
 #include <pthread.h>
@@ -102,20 +101,22 @@ void mysql_disconnect(void)
 void B1Interrupt() 
 {   
     printf("BTN1 Pressed\n");
-/*    if (on == 1)
+    if (on == 1)
     {
-        digitalWrite(IN1, 0);
+        //digitalWrite(IN1, 0);
+        printf("OFF\n");
         on = 0;
-        BTNCount = 0;
+        //BTNCount = 0;
     }
 
     else if(on == 0)
     {
-        digitalWrite(IN1, 1);
+        //digitalWrite(IN1, 1);
+        printf("ON\n");
         on = 1;
-        BTNCount = 0;
+        //BTNCount = 0;
     }
-*/
+
 }
 
 int setupWiringPiFunction() 
