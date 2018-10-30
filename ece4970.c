@@ -145,11 +145,22 @@ void *readingADC(void* ptr)
 
 void *triggerCircuit(void* ptr)
 {
+    /*
     if(setupWiringPiFunction() < 0 )
     {
         printf("Error setup RUT\n");
         return -1;
     }        
+    */
+
+    if (wiringPiSetup () < 0) 
+    {
+        printf("Unable to setup wiringPi\n");
+        exit(-1);
+    }
+    
+    pinMode(IN1, OUTPUT);
+    pinMode(BTN1, INPUT);
 
     while(1)
     {
