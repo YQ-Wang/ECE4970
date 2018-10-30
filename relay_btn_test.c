@@ -173,6 +173,7 @@ void *triggerCircuit(void* ptr)
             if(REGULAR_Count>7)
             {
                 digitalWrite(IN1, 1);
+                REGULAR_Count = 0;
             }
         }
     }
