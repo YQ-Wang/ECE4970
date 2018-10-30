@@ -39,7 +39,7 @@ MYSQL *mysql1;
 
 #define INIT_VALUE 0
 
-sstruct timeval eventTime;
+struct timeval eventTime;
 struct timeval interruptTimeB1, lastInterruptTimeB1;
 
 sem_t my_semaphore1,my_semaphore2;
@@ -53,8 +53,6 @@ int ADC_Value = 0;
 
 int on = 1;
 int BTNCount=0;
-
-int on=1;
 
 void mysql_connect(void)
 {
@@ -252,6 +250,8 @@ int main(void)
         printf("Not able to setup wiringpi\n");
         return -1;
     }
+    
+    mysql_connect();
 
     //int BTNCount=0;
     //int i;
@@ -265,5 +265,8 @@ int main(void)
         sleep(1);
 
     }
+    
+    mysql_disconnect();
+    
     return 0;
 }
