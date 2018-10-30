@@ -295,6 +295,7 @@ int main(int argc, char *argv[])
 
     while(1)  
     {
+        printf("Here\n");
         sleep(1);
         digitalWrite(IN1, 0);
             sleep(1);
