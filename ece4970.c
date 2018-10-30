@@ -150,6 +150,11 @@ int getADCValue()
 
 void *readingADC(void* ptr)
 {
+        if(wiringPiSPISetup(SPI_CHANNEL, SPI_SPEED) < 0) {
+        cout << "wiringPiSPISetup failed" << endl;
+        //return -1 ;
+    }
+    
     while(1) 
     {   
         LOWBOUND_Flag = 0;
