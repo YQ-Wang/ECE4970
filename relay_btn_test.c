@@ -23,18 +23,17 @@ int main(void)
     digitalWrite(IN1, 1);
 
     int BTNCount=0;
+    int i;
 
-    for(;;)
-    {
-        int i;
-        
+    while(1)
+    {   
         for(i=0;i<10;i++)
         {
             if (digitalRead(BTN1) == HIGH)
             {
-                usleep(10);
                 BTNCount++;
             }
+            usleep(10);
         }
 
         if (BTNCount>6)
@@ -53,8 +52,6 @@ int main(void)
                 BTNCount = 0;
             }
         }
-
-        usleep(10);
     }
 
     return 0;
