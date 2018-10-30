@@ -47,6 +47,12 @@ void *triggerCircuit(void* ptr)
     }
 }
 
+void B1Interrupt(){
+    printf("1\n");
+    return;
+}
+
+
 void *readingADC(void* ptr)
 {       
     //int i;
@@ -82,6 +88,11 @@ int main(void)
     if (wiringPiSetup() < 0) 
     {
         printf("Not able to setup wiringpi\n");
+        return -1;
+    }
+    if ( wiringPiISR (BTN1, INT_EDGE_RISING, &B1Interrupt) < 0 ) 
+    {
+        printf("Not able to setup IRS\n");
         return -1;
     }
           
