@@ -155,10 +155,10 @@ void *triggerCircuit(void* ptr)
                 //printf("LOWBOUND_Count = %d\n", LOWBOUND_Count);
                 gettimeofday(&eventTime, NULL);
                 strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
-                printf("NO POWER: %s\n", eventTime_string);
+                printf("\nNO POWER: %s\n\n", eventTime_string);
                 digitalWrite(IN1, 1);
                 LOWBOUND_Count = 0;
-                sleep(3);
+                sleep(10);
             }
             
             if(HIGHBOUND_Count>2)
@@ -166,10 +166,10 @@ void *triggerCircuit(void* ptr)
                 //printf("HIGHBOUND_Count = %d\n", HIGHBOUND_Count);
                 gettimeofday(&eventTime, NULL);
                 strftime(eventTime_string, sizeof(eventTime_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime.tv_sec, &eventTime_tm));
-                printf("TOO HIGH: %s\n", eventTime_string);
+                printf("\nTOO HIGH: %s\n\n", eventTime_string);
                 digitalWrite(IN1, 1);
                 HIGHBOUND_Count = 0;
-                sleep(3);
+                sleep(10);
             }
             
             if(REGULAR_Count>20)
@@ -179,7 +179,6 @@ void *triggerCircuit(void* ptr)
                 printf("GOOD: %s\n", eventTime_string);
                 digitalWrite(IN1, 0);
                 REGULAR_Count = 0;
-                sleep(3);
             }
         }
     }
