@@ -286,7 +286,7 @@ int main(int argc, char *argv[])
         sem_post(&my_semaphore2);
     }
 
-    mysql_close(conn);
+    mysql_disconnect();
     
     return 0;
 }
