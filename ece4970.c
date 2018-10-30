@@ -258,22 +258,11 @@ void *triggerCircuit(void* ptr)
 
 int main(int argc, char *argv[]) 
 {
-    // if(setupWiringPiFunction() < 0 )
-    // {
-    //     printf("Error setup RUT\n");
-    //     exit(-1);
-    // }      
-
-    if (wiringPiSetup () < 0) 
+    if(setupWiringPiFunction() < 0 )
     {
-        printf("Unable to setup wiringPi\n");
-        return -1;
-    }
-    
-    pinMode(IN1, OUTPUT);
-    //pinMode(BTN1, INPUT);
-
-    digitalWrite(IN1, 1);
+        printf("Error setup RUT\n");
+        exit(-1);
+    }      
 
     int rc = wiringPiSetupGpio();
 
@@ -289,18 +278,13 @@ int main(int argc, char *argv[])
     //sem_init(&my_semaphore2,0,INIT_VALUE);
     
     pthread_t adcReading, circuitTrigger;
-    //pthread_create(&adcReading, NULL, readingADC, NULL);
+    pthread_create(&adcReading, NULL, readingADC, NULL);
     usleep(1000);
-    //pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
+    pthread_create(&circuitTrigger, NULL, triggerCircuit, NULL);
 
     while(1)  
     {
-        printf("Here\n");
         sleep(1);
-        digitalWrite(IN1, 0);
-            sleep(1);
-            digitalWrite(IN1, 1);
-            sleep(1);
         //sem_wait(&my_semaphore1);
 
         //usleep(50000);
