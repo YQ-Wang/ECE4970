@@ -155,15 +155,6 @@ int main(int argc, char *argv[])
         return -1;
     }        
 
-    printf("Starting ADC test\n");
-    int rc = wiringPiSetupGpio();
-
-    if (rc != 0) 
-    {
-        printf("Failed to wiringPiSetupGpio()\n");
-        return -1;
-    }
-
     pthread_t adcReading;
     //, receiveThread;
     pthread_create(&adcReading, NULL, readingADC, NULL);
