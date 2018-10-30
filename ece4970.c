@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <wiringPi.h>
 
 // ADC
@@ -20,6 +21,23 @@
 #define BTN1 25
 
 #define DELAYTIME 2
+
+enum typeEvent
+{
+    BTNOFF,
+    BTNON,
+    ADCBOUND,//ADC out of bound
+    ADCPOWER,//ADC no power
+    REGULAR//Regultory 1 second update
+};
+
+struct logevent
+{
+    char timeBuffer [26];
+    time_t rawtime;
+    int RTUid;
+    typeEvent typeEventID;
+} LogEvent;  
 
 int getADCValue() 
 {
@@ -83,16 +101,18 @@ int main(int argc, char *argv[])
 
     while(1) 
     {
-        int value[0] = getADCValue();
-        printf("value=%d\n", value[0]);
+        int value = getADCValue();
+        printf("value=%d\n", value);
 
-        if(value[0] < LOWBOUND)
+        if(value < LOWBOUND)
         {
-            
+            printf("\nADC POWER\n\n");
         }
-        
-        
-        
+
+        if(value > HIGHBOUND)
+        {
+            printf("\nADC BOUND\n\n");
+        }
         
         
         
