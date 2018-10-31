@@ -111,13 +111,4 @@ int BTN2_Flag = 0;
 int BTN3_Count = 0;
 int BTN3_Flag = 0;
 
-char *B1Interrupt_query = new char[100];
-char *B2Interrupt_query = new char[100];
-char *B3Interrupt_query = new char[100];
-char *BTNRESETInterrupt_query = new char[100];
-
-char *triggerCircuit1_query = new char[100];
-char *triggerCircuit2_query = new char[100];
-char *triggerCircuit3_query = new char[100];
-
 #endif 

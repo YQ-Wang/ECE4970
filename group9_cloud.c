@@ -633,6 +633,15 @@ int main(void)
 
     mysql_connect();
 
+    char *B1Interrupt_query = new char[100];
+    char *B2Interrupt_query = new char[100];
+    char *B3Interrupt_query = new char[100];
+    char *BTNRESETInterrupt_query = new char[100];
+
+    char *triggerCircuit1_query = new char[100];
+    char *triggerCircuit2_query = new char[100];
+    char *triggerCircuit3_query = new char[100];
+
     pthread_t adcReading1, circuitTrigger1;
     pthread_t adcReading2, circuitTrigger2;
     pthread_t adcReading3, circuitTrigger3;
