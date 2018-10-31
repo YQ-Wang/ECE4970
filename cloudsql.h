@@ -10,6 +10,14 @@
 
 MYSQL *mysql1;
 
+char B1Interrupt_query[100];
+char B2Interrupt_query[100];
+char B3Interrupt_query[100];
+char BTNRESETInterrupt_query[100];
+char triggerCircuit1_query[100];
+char triggerCircuit2_query[100];
+char triggerCircuit3_query[100];
+
 void mysql_connect(void)
 {
     //initialize MYSQL object for connections
