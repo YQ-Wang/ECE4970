@@ -289,7 +289,7 @@ void *triggerCircuit1(void* ptr)
                 //printf("LOWBOUND1_Count = %d\n", LOWBOUND1_Count);
                 gettimeofday(&eventTime1, NULL);
                 strftime(eventTime1_string, sizeof(eventTime1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime1.tv_sec, &eventTime1_tm));
-                printf("\nNO POWER: %s\n\n", eventTime1_string);
+                printf("\n1 NO POWER: %s\n\n", eventTime1_string);
                 digitalWrite(IN1, 1);
                 LOWBOUND1_Count = 0;
                 LOWBOUND1_Flag = 1;
@@ -300,7 +300,7 @@ void *triggerCircuit1(void* ptr)
                 //printf("HIGHBOUND1_Count = %d\n", HIGHBOUND1_Count);
                 gettimeofday(&eventTime1, NULL);
                 strftime(eventTime1_string, sizeof(eventTime1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime1.tv_sec, &eventTime1_tm));
-                printf("\nTOO HIGH: %s\n\n", eventTime1_string);
+                printf("\n1 TOO HIGH: %s\n\n", eventTime1_string);
                 digitalWrite(IN1, 1);
                 HIGHBOUND1_Count = 0;
                 HIGHBOUND1_Flag = 1;
@@ -310,7 +310,7 @@ void *triggerCircuit1(void* ptr)
             {
                 gettimeofday(&eventTime1, NULL);
                 strftime(eventTime1_string, sizeof(eventTime1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime1.tv_sec, &eventTime1_tm));
-                printf("GOOD: %s\n", eventTime1_string);
+                printf("1 GOOD: %s\n", eventTime1_string);
                 digitalWrite(IN1, 0);
                 REGULAR1_Count = 0;
             }
@@ -340,7 +340,7 @@ void *triggerCircuit2(void* ptr)
                 //printf("LOWBOUND2_Count = %d\n", LOWBOUND2_Count);
                 gettimeofday(&eventTime2, NULL);
                 strftime(eventTime2_string, sizeof(eventTime2_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime2.tv_sec, &eventTime2_tm));
-                printf("\nNO POWER: %s\n\n", eventTime2_string);
+                printf("\n2 NO POWER: %s\n\n", eventTime2_string);
                 digitalWrite(IN2, 1);
                 LOWBOUND2_Count = 0;
                 LOWBOUND2_Flag = 1;
@@ -351,7 +351,7 @@ void *triggerCircuit2(void* ptr)
                 //printf("HIGHBOUND2_Count = %d\n", HIGHBOUND2_Count);
                 gettimeofday(&eventTime2, NULL);
                 strftime(eventTime2_string, sizeof(eventTime2_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime2.tv_sec, &eventTime2_tm));
-                printf("\nTOO HIGH: %s\n\n", eventTime2_string);
+                printf("\n2 TOO HIGH: %s\n\n", eventTime2_string);
                 digitalWrite(IN2, 1);
                 HIGHBOUND2_Count = 0;
                 HIGHBOUND2_Flag = 1;
@@ -361,7 +361,7 @@ void *triggerCircuit2(void* ptr)
             {
                 gettimeofday(&eventTime2, NULL);
                 strftime(eventTime2_string, sizeof(eventTime2_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime2.tv_sec, &eventTime2_tm));
-                printf("GOOD: %s\n", eventTime2_string);
+                printf("2 GOOD: %s\n", eventTime2_string);
                 digitalWrite(IN2, 0);
                 REGULAR2_Count = 0;
             }
@@ -391,7 +391,7 @@ void *triggerCircuit3(void* ptr)
                 //printf("LOWBOUND3_Count = %d\n", LOWBOUND3_Count);
                 gettimeofday(&eventTime3, NULL);
                 strftime(eventTime3_string, sizeof(eventTime3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime3.tv_sec, &eventTime3_tm));
-                printf("\nNO POWER: %s\n\n", eventTime3_string);
+                printf("\n3 NO POWER: %s\n\n", eventTime3_string);
                 digitalWrite(IN3, 1);
                 LOWBOUND3_Count = 0;
                 LOWBOUND3_Flag = 1;
@@ -402,7 +402,7 @@ void *triggerCircuit3(void* ptr)
                 //printf("HIGHBOUND3_Count = %d\n", HIGHBOUND3_Count);
                 gettimeofday(&eventTime3, NULL);
                 strftime(eventTime3_string, sizeof(eventTime3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime3.tv_sec, &eventTime3_tm));
-                printf("\nTOO HIGH: %s\n\n", eventTime3_string);
+                printf("\n3 TOO HIGH: %s\n\n", eventTime3_string);
                 digitalWrite(IN3, 1);
                 HIGHBOUND3_Count = 0;
                 HIGHBOUND3_Flag = 1;
@@ -412,7 +412,7 @@ void *triggerCircuit3(void* ptr)
             {
                 gettimeofday(&eventTime3, NULL);
                 strftime(eventTime3_string, sizeof(eventTime3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime3.tv_sec, &eventTime3_tm));
-                printf("GOOD: %s\n", eventTime3_string);
+                printf("3 GOOD: %s\n", eventTime3_string);
                 digitalWrite(IN3, 0);
                 REGULAR3_Count = 0;
             }
