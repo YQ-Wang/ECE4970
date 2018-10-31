@@ -1,0 +1,27 @@
+CREATE TABLE IF NOT EXISTS `RTU_EVENT`(
+   `id` INT UNSIGNED AUTO_INCREMENT,
+   `RTU_id` INT NOT NULL,
+   `Event_Type` VARCHAR(40) NOT NULL,
+   `Power` VARCHAR(10) NOT NULL,
+   `Event_Date` DATETIME,
+   `ADC_Value` INT,    
+   PRIMARY KEY ( `id` ))
+
+INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("1", "GOOD", "ON", "2018-10-30 21:44:29", "121");
+INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("2", "GOOD", "ON", "2018-10-30 21:44:31", "34");
+INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("3", "GOOD", "ON", "2018-10-30 21:44:32", "82");
+
+INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("1", "NO POWER", "OFF", "2018-10-30 21:44:33", "0");
+INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("2", "TOO HIGH", "OFF", "2018-10-30 21:44:35", "149");
+INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ("2", "BTN2 Pressed", "OFF", "2018-10-30 21:44:37");
+INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ("3", "BTN3 Pressed", "OFF", "2018-10-30 21:44:38");
+INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ("123", "RESET BTN Pressed", "ON", "2018-10-30 21:45:11");
+
+
+DROP TABLE RTU_EVENT;
+
+
+if (mysql_query(mysql1, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ("1", "GOOD", "ON", "2018-10-30 21:44:29")) 
+{
+    finish_with_error(mysql1);
+}

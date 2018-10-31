@@ -70,6 +70,10 @@ struct timeval interruptTimeB3;
 char eventTime3_string[64];
 char interruptTimeB3_string[64];
 
+struct tm interruptTimeRESET_tm;
+struct timeval interruptTimeRESET;
+char interruptTimeRESET_string[64];
+
 int LOWBOUND1_Count = 0;
 int HIGHBOUND1_Count = 0;
 int REGULAR1_Count = 0;
