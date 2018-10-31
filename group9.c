@@ -224,15 +224,20 @@ int setupWiringPiFunction()
         return 0;
     }
 
+    pinMode(BTN1, INPUT);
+    pinMode(BTN2, INPUT);
+    pinMode(BTN3, INPUT);
+    pinMode(ResetBTN, INPUT);
+
     pinMode(IN1, OUTPUT);
     pinMode(IN2, OUTPUT);
     pinMode(IN3, OUTPUT);
-    pinMode(IN4, OUTPUT);
+    //pinMode(IN4, OUTPUT);
 
     digitalWrite(IN1, 0);
     digitalWrite(IN2, 0);
     digitalWrite(IN3, 0);
-    digitalWrite(IN4, 0);
+    //digitalWrite(IN4, 0);
 
 
     //----------wiringpi GPIO interrupt setup ---------
