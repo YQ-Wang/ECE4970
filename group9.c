@@ -220,6 +220,10 @@ void ResetBTNInterrupt()
     BTN1_Flag = 0;
     BTN2_Flag = 0;
     BTN3_Flag = 0;
+    
+    digitalWrite(IN1, 0);
+    digitalWrite(IN2, 0);
+    digitalWrite(IN3, 0);
 }
 
 int setupWiringPiFunction() 
