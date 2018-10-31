@@ -220,7 +220,7 @@ void ResetBTNInterrupt()
     BTN1_Flag = 0;
     BTN2_Flag = 0;
     BTN3_Flag = 0;
-    
+
     digitalWrite(IN1, 0);
     digitalWrite(IN2, 0);
     digitalWrite(IN3, 0);
@@ -250,7 +250,6 @@ int setupWiringPiFunction()
     digitalWrite(IN2, 0);
     digitalWrite(IN3, 0);
     digitalWrite(IN4, 0);
-
 
     //----------wiringpi GPIO interrupt setup ---------
     if (wiringPiISR(BTN1, INT_EDGE_RISING, &B1Interrupt)<0) 
@@ -660,16 +659,13 @@ int main(void)
     pthread_t adcReading2, circuitTrigger2;
     pthread_t adcReading3, circuitTrigger3;
 
-    /*
     pthread_create(&adcReading1, NULL, readingADC1, NULL);
     usleep(1000);
     pthread_create(&circuitTrigger1, NULL, triggerCircuit1, NULL);
     
-
     pthread_create(&adcReading2, NULL, readingADC2, NULL);
     usleep(1000);
     pthread_create(&circuitTrigger2, NULL, triggerCircuit2, NULL);
-    */
     
     pthread_create(&adcReading3, NULL, readingADC3, NULL);
     usleep(1000);
