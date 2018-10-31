@@ -19,6 +19,8 @@ void B1Interrupt()
             printf("sql mistake\n");
         }
 
+        sleep(1);
+
         printf("\nBTN1 OFF: %s\n\n", interruptTimeB1_string);
         on1 = 0;
     }
@@ -34,6 +36,8 @@ void B1Interrupt()
         {
             printf("sql mistake\n");
         }      
+
+        sleep(1);
         
         printf("\nBTN1 ON: %s\n\n", interruptTimeB1_string);
         on1 = 1;
@@ -58,6 +62,8 @@ void B2Interrupt()
             printf("sql mistake\n");
         }        
 
+        sleep(1);
+
         printf("\nBTN2 OFF: %s\n\n", interruptTimeB2_string);
         on2 = 0;
     }
@@ -72,7 +78,9 @@ void B2Interrupt()
         if (mysql_query(mysql1, B2Interrupt_query) != 0) 
         {
             printf("sql mistake\n");
-        }                
+        }          
+
+        sleep(1);      
 
         printf("\nBTN2 ON: %s\n\n", interruptTimeB2_string);
         on2 = 1;
@@ -95,7 +103,9 @@ void B3Interrupt()
         if (mysql_query(mysql1, B3Interrupt_query) != 0) 
         {
             printf("sql mistake\n");
-        }                   
+        }           
+
+        sleep(1);        
 
         printf("\nBTN3 OFF: %s\n\n", interruptTimeB3_string);
         on3 = 0;
@@ -112,6 +122,8 @@ void B3Interrupt()
         {
             printf("sql mistake\n");
         }
+
+        sleep(1);
 
         printf("\nBTN3 ON: %s\n\n", interruptTimeB3_string);
         on3 = 1;
@@ -213,6 +225,8 @@ void *triggerCircuit1(void* ptr)
                     printf("sql mistake\n");
                 }    
 
+                sleep(1);
+
                 digitalWrite(IN1, 1);
                 LOWBOUND1_Count = 0;
                 LOWBOUND1_Flag = 1;
@@ -230,6 +244,8 @@ void *triggerCircuit1(void* ptr)
                 {
                     printf("sql mistake\n");
                 }   
+
+                sleep(1);
 
                 digitalWrite(IN1, 1);
                 HIGHBOUND1_Count = 0;
@@ -305,6 +321,8 @@ void *triggerCircuit2(void* ptr)
                     printf("sql mistake\n");
                 }     
 
+                sleep(1);
+
                 digitalWrite(IN2, 1);
                 HIGHBOUND2_Count = 0;
                 HIGHBOUND2_Flag = 1;
@@ -361,6 +379,8 @@ void *triggerCircuit3(void* ptr)
                     printf("sql mistake\n");
                 }     
 
+                sleep(1);
+
                 digitalWrite(IN3, 1);
                 LOWBOUND3_Count = 0;
                 LOWBOUND3_Flag = 1;
@@ -378,6 +398,8 @@ void *triggerCircuit3(void* ptr)
                 {
                     printf("sql mistake\n");
                 }      
+
+                sleep(1);
 
                 digitalWrite(IN3, 1);
                 HIGHBOUND3_Count = 0;
@@ -397,7 +419,7 @@ void *triggerCircuit3(void* ptr)
                     printf("sql mistake\n");
                 }    
                 */
-               
+
                 digitalWrite(IN3, 0);
                 REGULAR3_Count = 0;
             }
