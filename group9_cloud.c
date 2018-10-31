@@ -19,7 +19,7 @@ void B1Interrupt()
             printf("sql mistake\n");
         }
 
-        sleep(1);
+        //sleep(1);
 
         printf("\nBTN1 OFF: %s\n\n", interruptTimeB1_string);
         on1 = 0;
@@ -62,7 +62,7 @@ void B2Interrupt()
             printf("sql mistake\n");
         }        
 
-        sleep(1);
+        //sleep(1);
 
         printf("\nBTN2 OFF: %s\n\n", interruptTimeB2_string);
         on2 = 0;
@@ -80,7 +80,7 @@ void B2Interrupt()
             printf("sql mistake\n");
         }          
 
-        sleep(1);      
+        //sleep(1);      
 
         printf("\nBTN2 ON: %s\n\n", interruptTimeB2_string);
         on2 = 1;
@@ -105,7 +105,7 @@ void B3Interrupt()
             printf("sql mistake\n");
         }           
 
-        sleep(1);        
+        //sleep(1);        
 
         printf("\nBTN3 OFF: %s\n\n", interruptTimeB3_string);
         on3 = 0;
@@ -123,7 +123,7 @@ void B3Interrupt()
             printf("sql mistake\n");
         }
 
-        sleep(1);
+        //sleep(1);
 
         printf("\nBTN3 ON: %s\n\n", interruptTimeB3_string);
         on3 = 1;
@@ -225,7 +225,7 @@ void *triggerCircuit1(void* ptr)
                     printf("sql mistake\n");
                 }    
 
-                sleep(1);
+                //sleep(1);
 
                 digitalWrite(IN1, 1);
                 LOWBOUND1_Count = 0;
@@ -245,7 +245,7 @@ void *triggerCircuit1(void* ptr)
                     printf("sql mistake\n");
                 }   
 
-                sleep(1);
+                //sleep(1);
 
                 digitalWrite(IN1, 1);
                 HIGHBOUND1_Count = 0;
@@ -321,7 +321,7 @@ void *triggerCircuit2(void* ptr)
                     printf("sql mistake\n");
                 }     
 
-                sleep(1);
+                //sleep(1);
 
                 digitalWrite(IN2, 1);
                 HIGHBOUND2_Count = 0;
@@ -379,7 +379,7 @@ void *triggerCircuit3(void* ptr)
                     printf("sql mistake\n");
                 }     
 
-                sleep(1);
+                //sleep(1);
 
                 digitalWrite(IN3, 1);
                 LOWBOUND3_Count = 0;
@@ -399,7 +399,7 @@ void *triggerCircuit3(void* ptr)
                     printf("sql mistake\n");
                 }      
 
-                sleep(1);
+                //sleep(1);
 
                 digitalWrite(IN3, 1);
                 HIGHBOUND3_Count = 0;
@@ -666,15 +666,15 @@ int main(void)
     pthread_t adcReading3, circuitTrigger3;
 
     pthread_create(&adcReading1, NULL, readingADC1, NULL);
-    usleep(1000);
+    usleep(10000);
     pthread_create(&circuitTrigger1, NULL, triggerCircuit1, NULL);
-    
+    usleep(10000);
     pthread_create(&adcReading2, NULL, readingADC2, NULL);
-    usleep(1000);
+    usleep(10000);
     pthread_create(&circuitTrigger2, NULL, triggerCircuit2, NULL);
-    
+    usleep(10000);
     pthread_create(&adcReading3, NULL, readingADC3, NULL);
-    usleep(1000);
+    usleep(10000);
     pthread_create(&circuitTrigger3, NULL, triggerCircuit3, NULL);
 
     while(1)
