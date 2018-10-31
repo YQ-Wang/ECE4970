@@ -638,17 +638,21 @@ int main(void)
     pthread_t adcReading2, circuitTrigger2;
     pthread_t adcReading3, circuitTrigger3;
 
+    /*
     pthread_create(&adcReading1, NULL, readingADC1, NULL);
     usleep(1000);
     pthread_create(&circuitTrigger1, NULL, triggerCircuit1, NULL);
+    */
 
     pthread_create(&adcReading2, NULL, readingADC2, NULL);
     usleep(1000);
     pthread_create(&circuitTrigger2, NULL, triggerCircuit2, NULL);
 
+    /*
     pthread_create(&adcReading3, NULL, readingADC3, NULL);
     usleep(1000);
     pthread_create(&circuitTrigger3, NULL, triggerCircuit3, NULL);
+    */
 
     while(1)
     {   
