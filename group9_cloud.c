@@ -10,8 +10,8 @@
 #include <mysql/mysql.h>
 #include <sys/time.h>
 #include <sys/timerfd.h>
-#include <utilities.h>
-#include <cloudsql.h>
+#include <./utilities.h>
+#include <./cloudsql.h>
 
 void B1Interrupt() 
 {   
