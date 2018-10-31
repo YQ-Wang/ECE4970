@@ -213,6 +213,14 @@ void B3Interrupt()
     }
 }
 
+void ResetBTNInterrupt() 
+{   
+    printf("ResetBTN Pressed\n");
+
+    BTN1_Flag = 0;
+    BTN2_Flag = 0;
+    BTN3_Flag = 0;
+}
 
 int setupWiringPiFunction() 
 {
@@ -241,17 +249,22 @@ int setupWiringPiFunction()
 
 
     //----------wiringpi GPIO interrupt setup ---------
-    if (wiringPiISR(BTN1, INT_EDGE_FALLING, &B1Interrupt)<0) 
+    if (wiringPiISR(BTN1, INT_EDGE_RISING, &B1Interrupt)<0) 
     {
         printf("Not able to setup IRS\n");
         return -1;
     }
-    if (wiringPiISR(BTN2, INT_EDGE_FALLING, &B2Interrupt)<0) 
+    if (wiringPiISR(BTN2, INT_EDGE_RISING, &B2Interrupt)<0) 
     {
         printf("Not able to setup IRS\n");
         return -1;
     }
-    if (wiringPiISR(BTN3, INT_EDGE_FALLING, &B3Interrupt)<0) 
+    if (wiringPiISR(BTN3, INT_EDGE_RISING, &B3Interrupt)<0) 
+    {
+        printf("Not able to setup IRS\n");
+        return -1;
+    }
+    if (wiringPiISR(ResetBTN, INT_EDGE_RISING, &ResetBTNInterrupt)<0) 
     {
         printf("Not able to setup IRS\n");
         return -1;
@@ -647,17 +660,16 @@ int main(void)
     pthread_create(&adcReading1, NULL, readingADC1, NULL);
     usleep(1000);
     pthread_create(&circuitTrigger1, NULL, triggerCircuit1, NULL);
-    */
+    
 
     pthread_create(&adcReading2, NULL, readingADC2, NULL);
     usleep(1000);
     pthread_create(&circuitTrigger2, NULL, triggerCircuit2, NULL);
-
-    /*
+    */
+    
     pthread_create(&adcReading3, NULL, readingADC3, NULL);
     usleep(1000);
     pthread_create(&circuitTrigger3, NULL, triggerCircuit3, NULL);
-    */
 
     while(1)
     {   
