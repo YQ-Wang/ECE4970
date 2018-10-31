@@ -241,11 +241,13 @@ int setupWiringPiFunction()
 
 
     //----------wiringpi GPIO interrupt setup ---------
+    /*
     if (wiringPiISR(BTN1, INT_EDGE_RISING, &B1Interrupt)<0) 
     {
         printf("Not able to setup IRS\n");
         return -1;
     }
+    */
     if (wiringPiISR(BTN2, INT_EDGE_RISING, &B2Interrupt)<0) 
     {
         printf("Not able to setup IRS\n");
