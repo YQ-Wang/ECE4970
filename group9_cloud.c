@@ -242,11 +242,13 @@ void *triggerCircuit1(void* ptr)
                 strftime(eventTime1_string, sizeof(eventTime1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime1.tv_sec, &eventTime1_tm));
                 printf("1 GOOD: %s\n", eventTime1_string);
 
+                /*
                 sprintf(triggerCircuit1_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('1', 'GOOD', 'ON', '%s', '%d')", eventTime1_string, ADC_Value1); 
                 if (mysql_query(mysql1, triggerCircuit1_query) != 0) 
                 {
                     printf("sql mistake\n");
                 }        
+                */
 
                 digitalWrite(IN1, 0);
                 REGULAR1_Count = 0;
@@ -314,11 +316,13 @@ void *triggerCircuit2(void* ptr)
                 strftime(eventTime2_string, sizeof(eventTime2_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime2.tv_sec, &eventTime2_tm));
                 printf("2 GOOD: %s\n", eventTime2_string);
 
+                /*
                 sprintf(triggerCircuit2_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('2', 'GOOD', 'ON', '%s', '%d')", eventTime2_string, ADC_Value2); 
                 if (mysql_query(mysql1, triggerCircuit2_query) != 0) 
                 {
                     printf("sql mistake\n");
                 }      
+                */
 
                 digitalWrite(IN2, 0);
                 REGULAR2_Count = 0;
@@ -386,12 +390,14 @@ void *triggerCircuit3(void* ptr)
                 strftime(eventTime3_string, sizeof(eventTime3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime3.tv_sec, &eventTime3_tm));
                 printf("3 GOOD: %s\n", eventTime3_string);
 
+                /*
                 sprintf(triggerCircuit3_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('3', 'GOOD', 'ON', '%s', '%d')", eventTime3_string, ADC_Value3); 
                 if (mysql_query(mysql1, triggerCircuit3_query) != 0) 
                 {
                     printf("sql mistake\n");
                 }    
-
+                */
+               
                 digitalWrite(IN3, 0);
                 REGULAR3_Count = 0;
             }
