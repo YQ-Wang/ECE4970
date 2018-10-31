@@ -5,7 +5,7 @@ void B1Interrupt()
 {   
     BTN1_Flag = 1;
 
-    printf("BTN1 Pressed\n");
+    //printf("BTN1 Pressed\n");
     
     if (on1 == 1)
     {
@@ -18,7 +18,7 @@ void B1Interrupt()
             finish_with_error(mysql1);
         }
 
-        printf("OFF: %s\n", interruptTimeB1_string);
+        printf("\nBTN1 OFF: %s\n\n", interruptTimeB1_string);
         on1 = 0;
     }
     
@@ -33,7 +33,7 @@ void B1Interrupt()
             finish_with_error(mysql1);
         }        
         
-        printf("ON: %s\n", interruptTimeB1_string);
+        printf("\nBTN1 ON: %s\n\n", interruptTimeB1_string);
         on1 = 1;
     }
 }
@@ -42,7 +42,7 @@ void B2Interrupt()
 {   
     BTN2_Flag = 1;
 
-    printf("BTN2 Pressed\n");
+    //printf("BTN2 Pressed\n");
     
     if (on2 == 1)
     {
@@ -55,7 +55,7 @@ void B2Interrupt()
             finish_with_error(mysql1);
         }
 
-        printf("OFF: %s\n", interruptTimeB2_string);
+        printf("\nBTN2 OFF: %s\n\n", interruptTimeB2_string);
         on2 = 0;
     }
 
@@ -70,7 +70,7 @@ void B2Interrupt()
             finish_with_error(mysql1);
         }
 
-        printf("ON: %s\n", interruptTimeB2_string);
+        printf("\nBTN2 ON: %s\n\n", interruptTimeB2_string);
         on2 = 1;
     }
 }
@@ -79,7 +79,7 @@ void B3Interrupt()
 {   
     BTN3_Flag = 1;
 
-    printf("BTN3 Pressed\n");
+    //printf("BTN3 Pressed\n");
     
     if (on3 == 1)
     {
@@ -92,7 +92,7 @@ void B3Interrupt()
             finish_with_error(mysql1);
         }
 
-        printf("OFF: %s\n", interruptTimeB3_string);
+        printf("\nBTN3 OFF: %s\n\n", interruptTimeB3_string);
         on3 = 0;
     }
 
@@ -107,17 +107,19 @@ void B3Interrupt()
             finish_with_error(mysql1);
         }
 
-        printf("ON: %s\n", interruptTimeB3_string);
+        printf("\nBTN3 ON: %s\n\n", interruptTimeB3_string);
         on3 = 1;
     }
 }
 
 void ResetBTNInterrupt() 
 {   
-    printf("ResetBTN Pressed\n");
+    //printf("ResetBTN Pressed\n");
     
     gettimeofday(&interruptTimeRESET, NULL);
     strftime(interruptTimeRESET_string, sizeof(interruptTimeRESET_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeRESET.tv_sec, &interruptTimeRESET_tm));
+
+    printf("\nResetBTN Pressed: %s\n\n", interruptTimeRESET_string);
 
     BTN1_Flag = 0;
     BTN2_Flag = 0;
@@ -196,7 +198,7 @@ void *triggerCircuit1(void* ptr)
                 //printf("LOWBOUND1_Count = %d\n", LOWBOUND1_Count);
                 gettimeofday(&eventTime1, NULL);
                 strftime(eventTime1_string, sizeof(eventTime1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime1.tv_sec, &eventTime1_tm));
-                printf("\n1 NO POWER: %s\n\n", eventTime1_string);
+                printf("1 NO POWER: %s\n", eventTime1_string);
 
                 if (mysql_query(mysql1, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("1", "NO POWER", "OFF", eventTime1_string), ADC_Value1")) 
                 {
@@ -213,7 +215,7 @@ void *triggerCircuit1(void* ptr)
                 //printf("HIGHBOUND1_Count = %d\n", HIGHBOUND1_Count);
                 gettimeofday(&eventTime1, NULL);
                 strftime(eventTime1_string, sizeof(eventTime1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime1.tv_sec, &eventTime1_tm));
-                printf("\n1 TOO HIGH: %s\n\n", eventTime1_string);
+                printf("1 TOO HIGH: %s\n", eventTime1_string);
 
                 if (mysql_query(mysql1, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("1", "TOO HIGH", "OFF", eventTime1_string), ADC_Value1")) 
                 {
@@ -334,7 +336,7 @@ void *triggerCircuit3(void* ptr)
                 //printf("LOWBOUND3_Count = %d\n", LOWBOUND3_Count);
                 gettimeofday(&eventTime3, NULL);
                 strftime(eventTime3_string, sizeof(eventTime3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime3.tv_sec, &eventTime3_tm));
-                printf("\n3 NO POWER: %s\n\n", eventTime3_string);
+                printf("3 NO POWER: %s\n", eventTime3_string);
 
                 if (mysql_query(mysql1, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("3", "NO POWER", "OFF", eventTime3_string, ADC_Value3)")) 
                 {
@@ -351,7 +353,7 @@ void *triggerCircuit3(void* ptr)
                 //printf("HIGHBOUND3_Count = %d\n", HIGHBOUND3_Count);
                 gettimeofday(&eventTime3, NULL);
                 strftime(eventTime3_string, sizeof(eventTime3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime3.tv_sec, &eventTime3_tm));
-                printf("\n3 TOO HIGH: %s\n\n", eventTime3_string);
+                printf("3 TOO HIGH: %s\n", eventTime3_string);
 
                 if (mysql_query(mysql1, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("3", "TOO HIGH", "OFF", eventTime3_string, ADC_Value3)")) 
                 {
