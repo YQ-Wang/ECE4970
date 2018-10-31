@@ -8,6 +8,15 @@
 #define DATABASE_USERNAME	"root"
 #define DATABASE_PASSWORD	"ece4970"
 
+char *B1Interrupt_query = new char[100];
+char *B2Interrupt_query = new char[100];
+char *B3Interrupt_query = new char[100];
+char *BTNRESETInterrupt_query = new char[100];
+
+char *triggerCircuit1_query = new char[100];
+char *triggerCircuit2_query = new char[100];
+char *triggerCircuit3_query = new char[100];
+
 MYSQL *mysql1;
 
 void mysql_connect(void)

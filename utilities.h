@@ -10,6 +10,7 @@
 #include <pthread.h>
 #include <semaphore.h>
 #include <math.h>
+#include <string.h>
 #include <mysql/mysql.h>
 #include <sys/time.h>
 #include <sys/timerfd.h>
