@@ -11,8 +11,132 @@
 #include <sys/time.h>
 #include <sys/timerfd.h>
 
-#include "utilities.h"
-#include "cloudsql.h"
+#define DATABASE_NAME		"scada"
+#define DATABASE_IP         "35.192.121.176"
+#define DATABASE_USERNAME	"root"
+#define DATABASE_PASSWORD	"ece4970"
+
+MYSQL *mysql1;
+
+// ADC
+#define CLK1 6
+#define DIO1 13
+#define CS1 5
+
+#define CLK2 9
+#define DIO2 11
+#define CS2 10
+
+#define CLK3 15
+#define DIO3 14
+#define CS3 18
+
+// Relay
+#define IN1 22
+#define IN2 27
+#define IN3 17
+#define IN4 4
+
+//bound
+#define LOWBOUND1 10
+#define HIGHBOUND1 140 
+#define LOWBOUND2 10
+#define HIGHBOUND2 140 
+#define LOWBOUND3 10
+#define HIGHBOUND3 140 
+
+// Button
+#define BTN1 26
+#define BTN2 16
+#define BTN3 12
+#define ResetBTN 19
+
+#define DELAYTIME 2
+
+struct tm eventTime1_tm;
+struct tm interruptTimeB1_tm;
+struct timeval eventTime1;
+struct timeval interruptTimeB1;
+char eventTime1_string[64];
+char interruptTimeB1_string[64];
+
+struct tm eventTime2_tm;
+struct tm interruptTimeB2_tm;
+struct timeval eventTime2;
+struct timeval interruptTimeB2;
+char eventTime2_string[64];
+char interruptTimeB2_string[64];
+
+struct tm eventTime3_tm;
+struct tm interruptTimeB3_tm;
+struct timeval eventTime3;
+struct timeval interruptTimeB3;
+char eventTime3_string[64];
+char interruptTimeB3_string[64];
+
+int LOWBOUND1_Count = 0;
+int HIGHBOUND1_Count = 0;
+int REGULAR1_Count = 0;
+
+int LOWBOUND1_Flag = 0;
+int HIGHBOUND1_Flag = 0;
+
+int LOWBOUND2_Count = 0;
+int HIGHBOUND2_Count = 0;
+int REGULAR2_Count = 0;
+
+int LOWBOUND2_Flag = 0;
+int HIGHBOUND2_Flag = 0;
+
+int LOWBOUND3_Count = 0;
+int HIGHBOUND3_Count = 0;
+int REGULAR3_Count = 0;
+
+int LOWBOUND3_Flag = 0;
+int HIGHBOUND3_Flag = 0;
+
+int ADC_Value1 = 0;
+int ADC_Value2 = 0;
+int ADC_Value3 = 0;
+
+int on1 = 1;
+int on2 = 1;
+int on3 = 1;
+
+int BTN1_Count = 0;
+int BTN1_Flag = 0;
+int BTN2_Count = 0;
+int BTN2_Flag = 0;
+int BTN3_Count = 0;
+int BTN3_Flag = 0;
+
+void mysql_connect(void)
+{
+    //initialize MYSQL object for connections
+	mysql1 = mysql_init(NULL);
+
+    if(mysql1 == NULL)
+    {
+        fprintf(stderr, "%s\n", mysql_error(mysql1));
+        return;
+    }
+
+    //Connect to the database
+    if(mysql_real_connect(mysql1, DATABASE_IP, DATABASE_USERNAME, DATABASE_PASSWORD, DATABASE_NAME, 0, NULL, 0) == NULL)
+    {
+    	fprintf(stderr, "%s\n", mysql_error(mysql1));
+    }
+    else
+    {
+        printf("Database connection successful.\n");
+    }
+}
+
+void mysql_disconnect(void)
+{
+    mysql_close(mysql1);
+    printf( "Disconnected from database.\n");
+}
 
 void B1Interrupt() 
 {   
@@ -302,6 +426,7 @@ void *triggerCircuit3(void* ptr)
         }
     }
 }
+
 
 int getADCValue1() 
 {
