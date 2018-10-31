@@ -47,8 +47,8 @@ MYSQL *mysql1;
 
 // Button
 #define BTN1 26
-#define BTN2 3
-#define BTN3 2
+#define BTN2 16
+#define BTN3 12
 #define ResetBTN 19
 
 #define DELAYTIME 2
@@ -232,28 +232,26 @@ int setupWiringPiFunction()
     pinMode(IN1, OUTPUT);
     pinMode(IN2, OUTPUT);
     pinMode(IN3, OUTPUT);
-    //pinMode(IN4, OUTPUT);
+    pinMode(IN4, OUTPUT);
 
     digitalWrite(IN1, 0);
     digitalWrite(IN2, 0);
     digitalWrite(IN3, 0);
-    //digitalWrite(IN4, 0);
+    digitalWrite(IN4, 0);
 
 
     //----------wiringpi GPIO interrupt setup ---------
-    /*
-    if (wiringPiISR(BTN1, INT_EDGE_RISING, &B1Interrupt)<0) 
+    if (wiringPiISR(BTN1, INT_EDGE_FALLING, &B1Interrupt)<0) 
     {
         printf("Not able to setup IRS\n");
         return -1;
     }
-    */
-    if (wiringPiISR(BTN2, INT_EDGE_RISING, &B2Interrupt)<0) 
+    if (wiringPiISR(BTN2, INT_EDGE_FALLING, &B2Interrupt)<0) 
     {
         printf("Not able to setup IRS\n");
         return -1;
     }
-    if (wiringPiISR(BTN3, INT_EDGE_RISING, &B3Interrupt)<0) 
+    if (wiringPiISR(BTN3, INT_EDGE_FALLING, &B3Interrupt)<0) 
     {
         printf("Not able to setup IRS\n");
         return -1;
