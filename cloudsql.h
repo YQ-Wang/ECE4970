@@ -1,5 +1,8 @@
 // Google Cloud SQL
 
+#ifndef __CLOUDSQL_H__
+#define __CLOUDSQL_H__
+
 #define DATABASE_NAME		"scada"
 #define DATABASE_IP         "35.192.121.176"
 #define DATABASE_USERNAME	"root"
@@ -34,3 +37,5 @@ void mysql_disconnect(void)
     mysql_close(mysql1);
     printf( "Disconnected from database.\n");
 }
+
+#endif 

@@ -1,3 +1,6 @@
+#ifndef __UTILITIES_H__
+#define __UTILITIES_H__
+
 // ADC
 #define CLK1 6
 #define DIO1 13
@@ -89,3 +92,5 @@ int BTN2_Count = 0;
 int BTN2_Flag = 0;
 int BTN3_Count = 0;
 int BTN3_Flag = 0;
+
+#endif 
