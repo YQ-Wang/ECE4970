@@ -1,6 +1,19 @@
 #ifndef __UTILITIES_H__
 #define __UTILITIES_H__
 
+#include <stdio.h>
+#include <unistd.h>
+#include <wiringPi.h>
+#include <wiringPiSPI.h>
+#include <time.h>
+#include <stdlib.h>     /* atoi */
+#include <pthread.h>
+#include <semaphore.h>
+#include <math.h>
+#include <mysql/mysql.h>
+#include <sys/time.h>
+#include <sys/timerfd.h>
+
 // ADC
 #define CLK1 6
 #define DIO1 13

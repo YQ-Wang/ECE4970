@@ -1,16 +1,3 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <wiringPi.h>
-#include <wiringPiSPI.h>
-#include <time.h>
-#include <stdlib.h>     /* atoi */
-#include <pthread.h>
-#include <semaphore.h>
-#include <math.h>
-#include <mysql/mysql.h>
-#include <sys/time.h>
-#include <sys/timerfd.h>
-
 #include "utilities.h"
 #include "cloudsql.h"
 
