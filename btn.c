@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <wiringPi.h>
 
-#define IN4 19
+#define IN1 4
+#define BTN1 19
 
 int main(void)
 {
