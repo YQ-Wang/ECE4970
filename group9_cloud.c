@@ -158,10 +158,13 @@ void ResetBTNInterrupt()
     }
 
     digitalWrite(IN1, 0);
+    Circuit1_Flag = 1;
     usleep(1000);
     digitalWrite(IN2, 0);
+    Circuit2_Flag = 1;
     usleep(1000);
     digitalWrite(IN3, 0);
+    Circuit3_Flag = 1;
     usleep(1000);
 }
 

@@ -104,9 +104,9 @@ int on1 = 1;
 int on2 = 1;
 int on3 = 1;
 
-int Circuit1_Flag = 0;
-int Circuit2_Flag = 0;
-int Circuit3_Flag = 0;
+int Circuit1_Flag = 1;
+int Circuit2_Flag = 1;
+int Circuit3_Flag = 1;
 
 int BTN1_Count = 0;
 int BTN1_Flag = 0;
