@@ -16,9 +16,18 @@ int main(void)
 
     int on = 1;
     pinMode (IN1, OUTPUT);
-    pinMode (BTN1, INPUT);
+    //pinMode (BTN1, INPUT);
     digitalWrite(IN1, 1);
 
+    for(;;）
+    {
+        digitalWrite(IN1, 0);
+        sleep(5);
+        digitalWrite(IN1, 1);
+        sleep(5);
+    }
+
+    /*
     for(;;)
     {
         if (digitalRead(BTN1) == HIGH)
@@ -35,6 +44,7 @@ int main(void)
             }
         }
     }
+    */
 
     return 0;
 }
