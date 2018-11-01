@@ -395,14 +395,14 @@ void *triggerCircuit3(void *ptr)
 
     while (1)
     {
-        if (Circuit1_Flag == 1 && Circuit1_Flag == 1)
+        if (Circuit1_Flag == 1 && Circuit2_Flag == 1)
         {
             digitalWrite(IN3, 1);
             Circuit3_Flag = 0;
             REGULAR3_Count = 0;
         }
 
-        if (Circuit1_Flag == 0 || Circuit1_Flag == 0)
+        if (Circuit1_Flag == 0 || Circuit2_Flag == 0)
         {
             usleep(10000);
 
