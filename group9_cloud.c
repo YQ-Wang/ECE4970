@@ -17,12 +17,12 @@ void B1Interrupt()
         usleep(100);
         if (mysql_query(mysql1, B1Interrupt_query) != 0)
         {
-            printf("sql mistake\n");
+            //printf("sql mistake\n");
         }
 
         //sleep(1);
 
-        printf("\nBTN1 OFF: %s\n\n", interruptTimeB1_string);
+        printf("BTN1 OFF: %s\n", interruptTimeB1_string);
         on1 = 0;
     }
 
@@ -36,12 +36,12 @@ void B1Interrupt()
         usleep(100);
         if (mysql_query(mysql1, B1Interrupt_query) != 0)
         {
-            printf("sql mistake\n");
+            //printf("sql mistake\n");
         }
 
         sleep(1);
 
-        printf("\nBTN1 ON: %s\n\n", interruptTimeB1_string);
+        printf("BTN1 ON: %s\n", interruptTimeB1_string);
         on1 = 1;
     }
 }
@@ -62,12 +62,12 @@ void B2Interrupt()
         usleep(100);
         if (mysql_query(mysql1, B2Interrupt_query) != 0)
         {
-            printf("sql mistake\n");
+            //printf("sql mistake\n");
         }
 
         //sleep(1);
 
-        printf("\nBTN2 OFF: %s\n\n", interruptTimeB2_string);
+        printf("BTN2 OFF: %s\n", interruptTimeB2_string);
         on2 = 0;
     }
 
@@ -81,12 +81,12 @@ void B2Interrupt()
         usleep(100);
         if (mysql_query(mysql1, B2Interrupt_query) != 0)
         {
-            printf("sql mistake\n");
+            //printf("sql mistake\n");
         }
 
         //sleep(1);
 
-        printf("\nBTN2 ON: %s\n\n", interruptTimeB2_string);
+        printf("BTN2 ON: %s\n", interruptTimeB2_string);
         on2 = 1;
     }
 }
@@ -107,12 +107,12 @@ void B3Interrupt()
         usleep(100);
         if (mysql_query(mysql1, B3Interrupt_query) != 0)
         {
-            printf("sql mistake\n");
+            //printf("sql mistake\n");
         }
 
         //sleep(1);
 
-        printf("\nBTN3 OFF: %s\n\n", interruptTimeB3_string);
+        printf("BTN3 OFF: %s\n", interruptTimeB3_string);
         on3 = 0;
     }
 
@@ -127,12 +127,12 @@ void B3Interrupt()
         usleep(100);
         if (mysql_query(mysql1, B3Interrupt_query) != 0)
         {
-            printf("sql mistake\n");
+            //printf("sql mistake\n");
         }
 
         //sleep(1);
 
-        printf("\nBTN3 ON: %s\n\n", interruptTimeB3_string);
+        printf("BTN3 ON: %s\n", interruptTimeB3_string);
         on3 = 1;
     }
 }
@@ -144,7 +144,7 @@ void ResetBTNInterrupt()
     gettimeofday(&interruptTimeRESET, NULL);
     strftime(interruptTimeRESET_string, sizeof(interruptTimeRESET_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeRESET.tv_sec, &interruptTimeRESET_tm));
 
-    printf("\nResetBTN Pressed: %s\n\n", interruptTimeRESET_string);
+    printf("ResetBTN Pressed: %s\n", interruptTimeRESET_string);
 
     BTN1_Flag = 0;
     BTN2_Flag = 0;
@@ -154,7 +154,7 @@ void ResetBTNInterrupt()
     usleep(100);
     if (mysql_query(mysql1, BTNRESETInterrupt_query) != 0)
     {
-        printf("sql mistake\n");
+        //printf("sql mistake\n");
     }
 
     digitalWrite(IN1, 0);
@@ -237,7 +237,7 @@ void *triggerCircuit1(void *ptr)
                 usleep(100);
                 if (mysql_query(mysql1, triggerCircuit1_query) != 0)
                 {
-                    printf("sql mistake\n");
+                    //printf("sql mistake\n");
                 }
 
                 //sleep(1);
@@ -260,7 +260,7 @@ void *triggerCircuit1(void *ptr)
                 usleep(100);
                 if (mysql_query(mysql1, triggerCircuit1_query) != 0)
                 {
-                    printf("sql mistake\n");
+                    //printf("sql mistake\n");
                 }
 
                 //sleep(1);
@@ -324,7 +324,7 @@ void *triggerCircuit2(void *ptr)
                 usleep(100);
                 if (mysql_query(mysql1, triggerCircuit2_query) != 0)
                 {
-                    printf("sql mistake\n");
+                    //printf("sql mistake\n");
                 }
 
                 digitalWrite(IN2, 1);
@@ -345,7 +345,7 @@ void *triggerCircuit2(void *ptr)
                 usleep(100);
                 if (mysql_query(mysql1, triggerCircuit2_query) != 0)
                 {
-                    printf("sql mistake\n");
+                    //printf("sql mistake\n");
                 }
 
                 //sleep(1);
@@ -419,7 +419,7 @@ void *triggerCircuit3(void *ptr)
                     usleep(100);
                     if (mysql_query(mysql1, triggerCircuit3_query) != 0)
                     {
-                        printf("sql mistake\n");
+                        //printf("sql mistake\n");
                     }
 
                     //sleep(1);
@@ -442,7 +442,7 @@ void *triggerCircuit3(void *ptr)
                     usleep(100);
                     if (mysql_query(mysql1, triggerCircuit3_query) != 0)
                     {
-                        printf("sql mistake\n");
+                        //printf("sql mistake\n");
                     }
 
                     //sleep(1);

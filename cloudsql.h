@@ -36,7 +36,9 @@ void mysql_connect(void)
     }
     else
     {
+        printf("===============================\n");
         printf("Database connection successful.\n");
+        printf("===============================\n\n");
     }
 }
 
