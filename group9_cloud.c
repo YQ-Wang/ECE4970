@@ -159,13 +159,13 @@ void ResetBTNInterrupt()
 
     digitalWrite(IN1, 0);
     Circuit1_Flag = 1;
-    usleep(1000);
+    //usleep(100);
     digitalWrite(IN2, 0);
     Circuit2_Flag = 1;
-    usleep(1000);
+    //usleep(100);
     digitalWrite(IN3, 0);
     Circuit3_Flag = 1;
-    usleep(1000);
+    //usleep(100);
 }
 
 int setupWiringPiFunction()
@@ -395,6 +395,13 @@ void *triggerCircuit3(void *ptr)
 
     while (1)
     {
+        if (Circuit1_Flag == 1 && Circuit1_Flag == 1)
+        {
+            digitalWrite(IN3, 1);
+            Circuit3_Flag = 0;
+            REGULAR3_Count = 0;
+        }
+
         if (Circuit1_Flag == 0 || Circuit1_Flag == 0)
         {
             usleep(10000);
