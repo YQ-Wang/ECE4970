@@ -176,7 +176,7 @@ int setupWiringPiFunction()
 
     digitalWrite(IN1, 0);
     digitalWrite(IN2, 0);
-    digitalWrite(IN3, 0);
+    digitalWrite(IN3, 1);
     digitalWrite(IN4, 1);
 
     //----------wiringpi GPIO interrupt setup ---------
