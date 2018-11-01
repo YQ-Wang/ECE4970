@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <wiringPi.h>
+#include <unistd.h>
 
 #define IN1 4
 #define BTN1 19
