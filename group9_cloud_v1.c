@@ -5,23 +5,41 @@ void B1Interrupt()
 {   
     BTN1_Flag = 1;
 
-    printf("BTN1 Pressed\n");
+    //printf("BTN1 Pressed\n");
     
     if (on1 == 1)
     {
         digitalWrite(IN1, 1);
         gettimeofday(&interruptTimeB1, NULL);
         strftime(interruptTimeB1_string, sizeof(interruptTimeB1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB1.tv_sec, &interruptTimeB1_tm));
-        printf("OFF: %s\n", interruptTimeB1_string);
+
+        sprintf(B1Interrupt_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ('1', 'B1 Pressed', 'OFF', '%s')", interruptTimeB1_string); 
+        if (mysql_query(mysql1, B1Interrupt_query) != 0) 
+        {
+            printf("sql mistake\n");
+        }
+
+        //sleep(1);
+
+        printf("\nBTN1 OFF: %s\n\n", interruptTimeB1_string);
         on1 = 0;
     }
-
+    
     else if(on1 == 0)
     {
         digitalWrite(IN1, 0);
         gettimeofday(&interruptTimeB1, NULL);
         strftime(interruptTimeB1_string, sizeof(interruptTimeB1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB1.tv_sec, &interruptTimeB1_tm));
-        printf("ON: %s\n", interruptTimeB1_string);
+        
+        sprintf(B1Interrupt_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ('1', 'B1 Pressed', 'ON', '%s')", interruptTimeB1_string); 
+        if (mysql_query(mysql1, B1Interrupt_query) != 0) 
+        {
+            printf("sql mistake\n");
+        }      
+
+        sleep(1);
+        
+        printf("\nBTN1 ON: %s\n\n", interruptTimeB1_string);
         on1 = 1;
     }
 }
@@ -30,14 +48,23 @@ void B2Interrupt()
 {   
     BTN2_Flag = 1;
 
-    printf("BTN2 Pressed\n");
+    //printf("BTN2 Pressed\n");
     
     if (on2 == 1)
     {
         digitalWrite(IN2, 1);
         gettimeofday(&interruptTimeB2, NULL);
         strftime(interruptTimeB2_string, sizeof(interruptTimeB2_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB2.tv_sec, &interruptTimeB2_tm));
-        printf("OFF: %s\n", interruptTimeB2_string);
+
+        sprintf(B2Interrupt_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ('2', 'B2 Pressed', 'OFF', '%s')", interruptTimeB2_string); 
+        if (mysql_query(mysql1, B2Interrupt_query) != 0) 
+        {
+            printf("sql mistake\n");
+        }        
+
+        //sleep(1);
+
+        printf("\nBTN2 OFF: %s\n\n", interruptTimeB2_string);
         on2 = 0;
     }
 
@@ -46,7 +73,16 @@ void B2Interrupt()
         digitalWrite(IN2, 0);
         gettimeofday(&interruptTimeB2, NULL);
         strftime(interruptTimeB2_string, sizeof(interruptTimeB2_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB2.tv_sec, &interruptTimeB2_tm));
-        printf("ON: %s\n", interruptTimeB2_string);
+
+        sprintf(B2Interrupt_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ('2', 'B2 Pressed', 'ON', '%s')", interruptTimeB2_string); 
+        if (mysql_query(mysql1, B2Interrupt_query) != 0) 
+        {
+            printf("sql mistake\n");
+        }          
+
+        //sleep(1);      
+
+        printf("\nBTN2 ON: %s\n\n", interruptTimeB2_string);
         on2 = 1;
     }
 }
@@ -55,14 +91,23 @@ void B3Interrupt()
 {   
     BTN3_Flag = 1;
 
-    printf("BTN3 Pressed\n");
+    //printf("BTN3 Pressed\n");
     
     if (on3 == 1)
     {
         digitalWrite(IN3, 1);
         gettimeofday(&interruptTimeB3, NULL);
         strftime(interruptTimeB3_string, sizeof(interruptTimeB3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB3.tv_sec, &interruptTimeB3_tm));
-        printf("OFF: %s\n", interruptTimeB3_string);
+
+        sprintf(B3Interrupt_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ('3', 'B3 Pressed', 'OFF', '%s')", interruptTimeB3_string); 
+        if (mysql_query(mysql1, B3Interrupt_query) != 0) 
+        {
+            printf("sql mistake\n");
+        }           
+
+        //sleep(1);        
+
+        printf("\nBTN3 OFF: %s\n\n", interruptTimeB3_string);
         on3 = 0;
     }
 
@@ -71,18 +116,38 @@ void B3Interrupt()
         digitalWrite(IN3, 0);
         gettimeofday(&interruptTimeB3, NULL);
         strftime(interruptTimeB3_string, sizeof(interruptTimeB3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeB3.tv_sec, &interruptTimeB3_tm));
-        printf("ON: %s\n", interruptTimeB3_string);
+
+        sprintf(B3Interrupt_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ('3', 'B3 Pressed', 'ON', '%s')", interruptTimeB3_string); 
+        if (mysql_query(mysql1, B3Interrupt_query) != 0) 
+        {
+            printf("sql mistake\n");
+        }
+
+        //sleep(1);
+
+        printf("\nBTN3 ON: %s\n\n", interruptTimeB3_string);
         on3 = 1;
     }
 }
 
 void ResetBTNInterrupt() 
 {   
-    printf("ResetBTN Pressed\n");
+    //printf("ResetBTN Pressed\n");
+    
+    gettimeofday(&interruptTimeRESET, NULL);
+    strftime(interruptTimeRESET_string, sizeof(interruptTimeRESET_string), "%Y-%m-%d %H:%M:%S", localtime_r(&interruptTimeRESET.tv_sec, &interruptTimeRESET_tm));
+
+    printf("\nResetBTN Pressed: %s\n\n", interruptTimeRESET_string);
 
     BTN1_Flag = 0;
     BTN2_Flag = 0;
     BTN3_Flag = 0;
+
+    sprintf(BTNRESETInterrupt_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ('123', 'RESET BTN Pressed', 'ON', '%s')", interruptTimeRESET_string); 
+    if (mysql_query(mysql1, BTNRESETInterrupt_query) != 0) 
+    {
+            printf("sql mistake\n");
+    }
 
     digitalWrite(IN1, 0);
     digitalWrite(IN2, 0);
@@ -112,7 +177,7 @@ int setupWiringPiFunction()
     digitalWrite(IN1, 0);
     digitalWrite(IN2, 0);
     digitalWrite(IN3, 0);
-    digitalWrite(IN4, 0);
+    digitalWrite(IN4, 1);
 
     //----------wiringpi GPIO interrupt setup ---------
     if (wiringPiISR(BTN1, INT_EDGE_RISING, &B1Interrupt)<0) 
@@ -152,7 +217,16 @@ void *triggerCircuit1(void* ptr)
                 //printf("LOWBOUND1_Count = %d\n", LOWBOUND1_Count);
                 gettimeofday(&eventTime1, NULL);
                 strftime(eventTime1_string, sizeof(eventTime1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime1.tv_sec, &eventTime1_tm));
-                printf("\n1 NO POWER: %s\n\n", eventTime1_string);
+                printf("1 NO POWER: %s\n", eventTime1_string);
+
+                sprintf(triggerCircuit1_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('1', 'NO POWER', 'OFF', '%s', '%d')", eventTime1_string, ADC_Value1); 
+                if (mysql_query(mysql1, triggerCircuit1_query) != 0) 
+                {
+                    printf("sql mistake\n");
+                }    
+
+                //sleep(1);
+
                 digitalWrite(IN1, 1);
                 LOWBOUND1_Count = 0;
                 LOWBOUND1_Flag = 1;
@@ -163,7 +237,16 @@ void *triggerCircuit1(void* ptr)
                 //printf("HIGHBOUND1_Count = %d\n", HIGHBOUND1_Count);
                 gettimeofday(&eventTime1, NULL);
                 strftime(eventTime1_string, sizeof(eventTime1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime1.tv_sec, &eventTime1_tm));
-                printf("\n1 TOO HIGH: %s\n\n", eventTime1_string);
+                printf("1 TOO HIGH: %s\n", eventTime1_string);
+
+                sprintf(triggerCircuit1_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('1', 'TOO HIGH', 'OFF', '%s', '%d')", eventTime1_string, ADC_Value1); 
+                if (mysql_query(mysql1, triggerCircuit1_query) != 0) 
+                {
+                    printf("sql mistake\n");
+                }   
+
+                //sleep(1);
+
                 digitalWrite(IN1, 1);
                 HIGHBOUND1_Count = 0;
                 HIGHBOUND1_Flag = 1;
@@ -174,6 +257,15 @@ void *triggerCircuit1(void* ptr)
                 gettimeofday(&eventTime1, NULL);
                 strftime(eventTime1_string, sizeof(eventTime1_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime1.tv_sec, &eventTime1_tm));
                 printf("1 GOOD: %s\n", eventTime1_string);
+
+                /*
+                sprintf(triggerCircuit1_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('1', 'GOOD', 'ON', '%s', '%d')", eventTime1_string, ADC_Value1); 
+                if (mysql_query(mysql1, triggerCircuit1_query) != 0) 
+                {
+                    printf("sql mistake\n");
+                }        
+                */
+
                 digitalWrite(IN1, 0);
                 REGULAR1_Count = 0;
             }
@@ -203,7 +295,14 @@ void *triggerCircuit2(void* ptr)
                 //printf("LOWBOUND2_Count = %d\n", LOWBOUND2_Count);
                 gettimeofday(&eventTime2, NULL);
                 strftime(eventTime2_string, sizeof(eventTime2_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime2.tv_sec, &eventTime2_tm));
-                printf("\n2 NO POWER: %s\n\n", eventTime2_string);
+                printf("2 NO POWER: %s\n", eventTime2_string);
+
+                sprintf(triggerCircuit2_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('2', 'NO POWER', 'OFF', '%s', '%d')", eventTime2_string, ADC_Value2); 
+                if (mysql_query(mysql1, triggerCircuit2_query) != 0) 
+                {
+                    printf("sql mistake\n");
+                }      
+
                 digitalWrite(IN2, 1);
                 LOWBOUND2_Count = 0;
                 LOWBOUND2_Flag = 1;
@@ -214,7 +313,16 @@ void *triggerCircuit2(void* ptr)
                 //printf("HIGHBOUND2_Count = %d\n", HIGHBOUND2_Count);
                 gettimeofday(&eventTime2, NULL);
                 strftime(eventTime2_string, sizeof(eventTime2_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime2.tv_sec, &eventTime2_tm));
-                printf("\n2 TOO HIGH: %s\n\n", eventTime2_string);
+                printf("2 TOO HIGH: %s\n", eventTime2_string);
+
+                sprintf(triggerCircuit2_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('2', 'TOO HIGH', 'OFF', '%s', '%d')", eventTime2_string, ADC_Value2); 
+                if (mysql_query(mysql1, triggerCircuit2_query) != 0) 
+                {
+                    printf("sql mistake\n");
+                }     
+
+                //sleep(1);
+
                 digitalWrite(IN2, 1);
                 HIGHBOUND2_Count = 0;
                 HIGHBOUND2_Flag = 1;
@@ -225,6 +333,15 @@ void *triggerCircuit2(void* ptr)
                 gettimeofday(&eventTime2, NULL);
                 strftime(eventTime2_string, sizeof(eventTime2_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime2.tv_sec, &eventTime2_tm));
                 printf("2 GOOD: %s\n", eventTime2_string);
+
+                /*
+                sprintf(triggerCircuit2_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('2', 'GOOD', 'ON', '%s', '%d')", eventTime2_string, ADC_Value2); 
+                if (mysql_query(mysql1, triggerCircuit2_query) != 0) 
+                {
+                    printf("sql mistake\n");
+                }      
+                */
+
                 digitalWrite(IN2, 0);
                 REGULAR2_Count = 0;
             }
@@ -254,7 +371,16 @@ void *triggerCircuit3(void* ptr)
                 //printf("LOWBOUND3_Count = %d\n", LOWBOUND3_Count);
                 gettimeofday(&eventTime3, NULL);
                 strftime(eventTime3_string, sizeof(eventTime3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime3.tv_sec, &eventTime3_tm));
-                printf("\n3 NO POWER: %s\n\n", eventTime3_string);
+                printf("3 NO POWER: %s\n", eventTime3_string);
+
+                sprintf(triggerCircuit3_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('3', 'NO POWER', 'OFF', '%s', '%d')", eventTime3_string, ADC_Value3); 
+                if (mysql_query(mysql1, triggerCircuit3_query) != 0) 
+                {
+                    printf("sql mistake\n");
+                }     
+
+                //sleep(1);
+
                 digitalWrite(IN3, 1);
                 LOWBOUND3_Count = 0;
                 LOWBOUND3_Flag = 1;
@@ -265,7 +391,16 @@ void *triggerCircuit3(void* ptr)
                 //printf("HIGHBOUND3_Count = %d\n", HIGHBOUND3_Count);
                 gettimeofday(&eventTime3, NULL);
                 strftime(eventTime3_string, sizeof(eventTime3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime3.tv_sec, &eventTime3_tm));
-                printf("\n3 TOO HIGH: %s\n\n", eventTime3_string);
+                printf("3 TOO HIGH: %s\n", eventTime3_string);
+
+                sprintf(triggerCircuit3_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('3', 'TOO HIGH', 'OFF', '%s', '%d')", eventTime3_string, ADC_Value3); 
+                if (mysql_query(mysql1, triggerCircuit3_query) != 0) 
+                {
+                    printf("sql mistake\n");
+                }      
+
+                //sleep(1);
+
                 digitalWrite(IN3, 1);
                 HIGHBOUND3_Count = 0;
                 HIGHBOUND3_Flag = 1;
@@ -276,6 +411,15 @@ void *triggerCircuit3(void* ptr)
                 gettimeofday(&eventTime3, NULL);
                 strftime(eventTime3_string, sizeof(eventTime3_string), "%Y-%m-%d %H:%M:%S", localtime_r(&eventTime3.tv_sec, &eventTime3_tm));
                 printf("3 GOOD: %s\n", eventTime3_string);
+
+                /*
+                sprintf(triggerCircuit3_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ('3', 'GOOD', 'ON', '%s', '%d')", eventTime3_string, ADC_Value3); 
+                if (mysql_query(mysql1, triggerCircuit3_query) != 0) 
+                {
+                    printf("sql mistake\n");
+                }    
+                */
+
                 digitalWrite(IN3, 0);
                 REGULAR3_Count = 0;
             }
@@ -522,15 +666,15 @@ int main(void)
     pthread_t adcReading3, circuitTrigger3;
 
     pthread_create(&adcReading1, NULL, readingADC1, NULL);
-    usleep(1000);
+    usleep(10000);
     pthread_create(&circuitTrigger1, NULL, triggerCircuit1, NULL);
-    
+    sleep(1);
     pthread_create(&adcReading2, NULL, readingADC2, NULL);
-    usleep(1000);
+    usleep(10000);
     pthread_create(&circuitTrigger2, NULL, triggerCircuit2, NULL);
-    
+    sleep(1);
     pthread_create(&adcReading3, NULL, readingADC3, NULL);
-    usleep(1000);
+    usleep(10000);
     pthread_create(&circuitTrigger3, NULL, triggerCircuit3, NULL);
 
     while(1)

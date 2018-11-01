@@ -25,3 +25,10 @@ if (mysql_query(mysql1, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event
 {
     finish_with_error(mysql1);
 }
+
+if (mysql_query(con, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date, ADC_Value) values ("2", "TOO HIGH", "OFF", "2018-10-30 21:44:35", "149");"))
+{    
+  finish_with_error(con);
+}
+
+sprintf(B1Interrupt_query, "INSERT INTO RTU_EVENT (RTU_id, Event_Type, Power, Event_Date) values ("1", "B1 Pressed", "OFF", %s)", interruptTimeB1_string); 
