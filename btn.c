@@ -3,7 +3,6 @@
 #include <unistd.h>
 
 #define IN1 4
-#define BTN1 19
 
 int main(void)
 {
@@ -20,32 +19,13 @@ int main(void)
     //pinMode (BTN1, INPUT);
     digitalWrite(IN1, 1);
 
-    for(;;)
+    while(1)
     {
         digitalWrite(IN1, 0);
         sleep(5);
         digitalWrite(IN1, 1);
         sleep(5);
     }
-
-    /*
-    for(;;)
-    {
-        if (digitalRead(BTN1) == HIGH)
-        {
-            if (on == 1)
-            {
-                digitalWrite(IN1, 0);
-                on = 0;
-            }
-            else if(on == 0)
-            {
-                digitalWrite(IN1, 1);
-                on = 1;
-            }
-        }
-    }
-    */
 
     return 0;
 }
